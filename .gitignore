@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .omc/
+
+# HTML 시안 (로컬 보관용)
+/prototype/
