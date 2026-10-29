@@ -240,7 +240,7 @@ export default function Home() {
                 <>
                   대기업 멘토링 쿠폰으로
                   <br />
-                  {COUPON.amount}원 즉시 할인 받아보세요
+                  {COUPON.amount} 즉시 할인 받아보세요
                 </>
               }
               className="mb-7"
@@ -252,7 +252,7 @@ export default function Home() {
                   결제창의 <b className="font-extrabold">쿠폰 등록</b> 칸에 <b className="font-extrabold">{COUPON.code}</b>를
                   입력하고 등록해요.
                 </>,
-                <>결제 금액에서 {COUPON.amount}원이 차감된 것을 확인하고 신청을 완료해요.</>,
+                <>결제 금액에서 {COUPON.amount} 할인된 것을 확인하고 신청을 완료해요.</>,
               ].map((text, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="grid size-[26px] shrink-0 place-items-center rounded-full bg-brand-200 text-[13px] font-extrabold text-brand-600">

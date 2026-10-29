@@ -1,6 +1,7 @@
-// 쿠폰 정보: 실제 값으로 교체
+// 쿠폰 정보
 export const COUPON = {
-  code: "[쿠폰 코드]",
-  amount: "[금액]",
-  until: "[사용 기한]",
+  code: "LETSBIGFIRM",
+  amount: "30%",
+  from: "2026.10.29",
+  until: "2026.11.30",
 };
