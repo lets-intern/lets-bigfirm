@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  /* 손글씨 메모·포인트 문구. layout.tsx 의 next/font 변수 */
+  --font-hand: var(--font-nanum-pen), "Noto Sans KR", cursive;
+
+  /* 메인 컬러 #4d55f5 (lets-mentor 와 같은 브랜드 토큰) */
+  --color-brand-50: #eef0ff;
+  --color-brand-100: #dfe1fe;
+  --color-brand-200: #e9eaff;
+  --color-brand-300: #9a9ffa;
+  --color-brand-500: #6f76f7;
+  --color-brand-600: #4d55f5;
+  --color-brand-700: #3a41d6;
+
+  --color-ink: #1c1c1c;
+  --color-ink-2: #575757;
+  --color-ink-3: #6e6e78;
+  --color-line: #e3e5f0;
+  --color-line-soft: #eef0f5;
+  --color-cool: #f6f7ff;
+  --color-paper: #fffdf8;
+  --color-paper-line: #e4e0d4;
+  --color-coral: #f2694b;
+  --color-stamp: #d8432a;
+  --color-note-blue: #3a46e0;
+  --color-highlight: #ffd200;
+  --color-new: #ff3d00;
+
+  --animate-shine: shine 2.8s linear infinite;
+
+  @keyframes shine {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+/* 히어로·마지막 CTA 배경 (letsgongchae.vercel.app 과 같은 연보라 그라데이션) */
+@utility bg-hero {
+  background-image: linear-gradient(135deg, #f1f0ff 0%, #e9ecff 45%, #f6f7ff 100%);
+}
+
+/* 섹션 라벨 앞의 "| " */
+@utility eyebrow {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+
+  &::before {
+    content: "| ";
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  word-break: keep-all;
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

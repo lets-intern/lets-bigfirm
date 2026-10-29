@@ -1,0 +1,763 @@
+<title>대기업 현직 멘토링</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Inter:wght@500;700;800&family=Nanum+Pen+Script&display=swap">
+<style>
+/* 라이트 모드 고정: 뷰어가 다크 모드여도 밝은 화면으로 표시 */
+/* Layout: 렛츠커리어 브랜드(블루·레인보우 바·인디고 보더 카드) 위에, '탈락한 서류를 평가자가 다시 읽는' 장면을 히어로로 세운 롱스크롤 상세페이지 */
+:root {
+  --bg: #ffffff;
+  --bg-cool: #f6f7ff;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --ink-2: #575757;
+  --ink-3: #6e6e78;
+  --line: #e3e5f0;
+  --blue: #4d55f5;
+  --blue-light: #9a9ffa;
+  --indigo: #4d55f5;
+  --deep: #1f2bb8;
+  --coral: #f2694b;
+  --sky: #13bcfe;
+  --tint-peach: #ffeeea;
+  --tint-lav: #f1f0ff;
+  --tint-ice: #e9f9ff;
+  --tint-blue: #e9eaff;
+  --paper: #fffdf8;
+  --on-color: #ffffff;
+  --hero-bg: linear-gradient(135deg, #f1f0ff 0%, #e9ecff 45%, #f6f7ff 100%);
+  --header-bg: rgba(255, 255, 255, .96);
+  --header-line: #eef0f5;
+  --bar: linear-gradient(90deg, #fe8064 10%, #4d55f5 50%, #13bcfe 100%);
+
+  --font-sans: "Pretendard Variable", "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+  --font-num: "Inter", "Pretendard Variable", "Noto Sans KR", system-ui, sans-serif;
+  --font-hand: "Nanum Pen Script", "Noto Sans KR", cursive;
+
+  --r-sm: 10px;
+  --r-md: 15px;
+  --r-lg: 20px;
+  --r-xl: 30px;
+  --wrap: 1080px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.6; letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 50; background: var(--bg); }
+h1, h2, h3 { margin: 0; letter-spacing: -0.022em; text-wrap: balance; line-height: 1.3; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  max-width: var(--wrap); margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.section { padding-block: 88px; }
+.section.cool { background: var(--bg-cool); }
+.eyebrow { font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.eyebrow::before { content: "| "; }
+.h2 { font-size: clamp(26px, 4.2vw, 38px); font-weight: 800; }
+.lede { font-size: 17px; color: var(--ink-2); max-width: 36em; }
+.head { display: grid; gap: 12px; margin-bottom: 40px; }
+.pipe::before { content: "| "; color: var(--ink-3); }
+
+/* ---------- Draft notice ---------- */
+.draft { background: var(--ink); color: var(--bg); font-size: 13px; text-align: center; padding-block: 8px; }
+.draft .wrap { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.draft b { color: var(--sky); }
+
+/* ---------- Header ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--header-bg); border-bottom: 1px solid var(--header-line); }
+.top .wrap { display: flex; align-items: center; gap: 36px; height: 64px; }
+.logo-link { display: flex; align-items: center; flex: none; }
+.logo { height: 28px; width: auto; display: block; }
+.nav { display: flex; align-items: center; gap: 28px; font-size: 16px; min-width: 0; }
+.nav a { text-decoration: none; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.nav .pass { position: relative; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.sparkle { position: absolute; top: -14px; left: -6px; color: var(--indigo); font-size: 13px; font-weight: 700; line-height: 1; }
+.sparkle small { font-size: 8px; vertical-align: top; }
+.shine {
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 35%, var(--blue) 50%, var(--ink) 65%, var(--ink) 100%);
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: lc-shine 2.8s linear infinite;
+}
+@keyframes lc-shine { 0% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.new { flex: none; width: 16px; height: 16px; border-radius: 50%; background: #ff3d00; color: #fff; font-size: 10px; font-weight: 800; display: grid; place-items: center; line-height: 1; }
+@media (max-width: 480px) { .top .wrap { gap: 20px; } .nav { gap: 18px; font-size: 15px; } .logo { height: 24px; } }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: inherit; font-weight: 700; font-size: 16px; text-decoration: none; cursor: pointer;
+  border-radius: 8px; padding: 15px 28px; border: 0;
+  background: #4d55f5; color: #fff; transition: transform .15s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: scale(.98); }
+.btn.ghost { background: var(--surface); color: var(--blue); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--hero-bg); color: var(--ink); overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: end; padding-block: 56px 72px; }
+.hero h1 { font-size: clamp(32px, 4.8vw, 48px); font-weight: 800; line-height: 1.3; }
+.hero h1 .em { color: var(--blue); }
+.hero .sub { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-top: 12px; max-width: 30em; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+.badge-on { font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .85); color: var(--ink-2); }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+
+/* the re-read document */
+.doc-stage { position: relative; padding: 0; }
+.doc {
+  background: var(--paper); color: #26262b; border-radius: 6px; padding: 34px 28px 28px;
+  box-shadow: 0 24px 50px -20px rgba(40, 50, 140, .28); transform: rotate(-1.5deg); transform-origin: left bottom;
+  font-size: 14px; line-height: 1.95; position: relative;
+  display: flex; flex-direction: column;
+}
+.doc-count { margin-top: auto; padding-top: 18px; border-top: 1px solid #e4e0d4; font-size: 12px; color: #77777f; text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .doc { min-height: 0; } }
+.doc-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: #77777f; border-bottom: 1px solid #e4e0d4; padding-bottom: 10px; margin-bottom: 14px; }
+.doc-meta b { color: #26262b; font-size: 13px; }
+.doc-q { font-weight: 700; font-size: 13px; color: #4a4a52; margin-bottom: 6px; }
+.doc p + p { margin-top: 8px; }
+.mark { background: linear-gradient(transparent 58%, rgba(254,128,100,.35) 58%); }
+.strike { text-decoration: line-through; text-decoration-color: #e8553a; text-decoration-thickness: 2px; color: #8a8a90; }
+.circle { border: 2px solid #e8553a; border-radius: 50% / 60%; padding: 0 4px; margin: 0 -4px; }
+.stamp {
+  position: absolute; top: 22px; right: 20px; transform: rotate(8deg);
+  border: 4px double #d8432a; color: #d8432a; font-weight: 800; font-size: 22px; letter-spacing: .1em; line-height: 1.3;
+  padding: 6px 16px; border-radius: 8px; opacity: .85;
+}
+.note {
+  font-family: var(--font-hand); font-size: 22px; line-height: 1.15; color: #e8553a;
+  position: absolute; background: #fff; padding: 8px 12px 6px; border-radius: 12px;
+  box-shadow: 0 10px 24px -10px rgba(10,15,80,.4); max-width: 210px;
+}
+.note small { display: block; font-family: var(--font-sans); font-size: 11px; color: #6b6b75; margin-top: 2px; letter-spacing: 0; }
+.note.n1 { right: -18px; top: 96px; transform: rotate(2deg); max-width: 260px; }
+.note.n2 { left: -26px; bottom: 26px; transform: rotate(-3deg); max-width: 260px; color: #3a46e0; }
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 44px; padding-block: 52px 64px; }
+  .note.n1 { right: -6px; top: 70px; }
+  .note.n2 { left: -6px; }
+}
+
+.rainbow { height: 10px; background: var(--bar); }
+
+/* ---------- Empathy ---------- */
+.empathy-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; align-items: stretch; }
+.sms { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 22px; max-width: 380px; display: flex; flex-direction: column; }
+.sms-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); margin-bottom: 12px; }
+.bubble { background: var(--bg-cool); border-radius: 18px 18px 18px 4px; padding: 14px 16px; font-size: 14px; line-height: 1.7; color: var(--ink-2); }
+.bubble b { color: var(--ink); }
+.bubble .bp { display: block; }
+.bubble .bp + .bp { margin-top: 8px; }
+.sms-after { margin-top: auto; padding-top: 14px; font-size: 16px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink-2); text-align: right; }
+.sms-after em { font-style: normal; color: var(--blue); }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; font-size: 16px; font-weight: 500; }
+.checks input { appearance: none; flex: none; width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--ink-3); margin: 1px 0 0; cursor: pointer; display: grid; place-content: center; }
+.checks input:checked { background: var(--indigo); border-color: var(--indigo); }
+.checks input:checked::after { content: ""; width: 10px; height: 6px; border: solid #fff; border-width: 0 0 2.5px 2.5px; transform: rotate(-45deg) translate(1px, -1px); }
+.checks label { cursor: pointer; }
+.turn { margin-top: 28px; font-size: 19px; font-weight: 500; line-height: 1.6; }
+.turn strong { font-weight: 800; background: linear-gradient(transparent 60%, var(--tint-blue) 60%); }
+@media (max-width: 860px) { .empathy-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ---------- Why ---------- */
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.why-item { background: var(--surface); border-radius: var(--r-lg); padding: 28px 24px; display: grid; gap: 10px; align-content: start; border: 1px solid var(--line); }
+.why-tag { justify-self: start; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+.why-item:nth-child(1) .why-tag { background: var(--tint-peach); color: var(--coral); }
+.why-item:nth-child(2) .why-tag { background: var(--tint-lav); color: var(--indigo); }
+.why-item:nth-child(3) .why-tag { background: var(--tint-ice); color: #0a7fae; }
+.why-item h3 { font-size: 20px; font-weight: 800; }
+.why-item p { color: var(--ink-2); font-size: 15px; }
+@media (max-width: 860px) { .why { grid-template-columns: 1fr; } }
+
+
+/* ---------- Same-job comparison ---------- */
+.compare { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; display: grid; gap: 16px; }
+.cmp-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cmp-head h3 { font-size: 20px; font-weight: 800; }
+.cmp-tag { font-size: 12px; font-weight: 700; color: var(--ink-3); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; }
+.cmp-src { background: var(--paper); color: #26262b; border-radius: var(--r-sm); padding: 14px 16px; font-size: 15px; line-height: 1.6; }
+.cmp-src span { display: block; font-size: 12px; font-weight: 700; color: #77777f; margin-bottom: 4px; }
+.cmp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.cmp-card { border-radius: var(--r-md); padding: 18px 20px; display: grid; gap: 8px; align-content: start; }
+.cmp-card p { font-size: 15px; line-height: 1.65; }
+.cmp-card.generic { background: var(--bg-cool); }
+.cmp-card.generic p:last-child { color: var(--ink-2); }
+.cmp-card.same { background: var(--tint-blue); box-shadow: inset 0 0 0 1.5px var(--blue); }
+.cmp-card.same p:last-child { font-weight: 600; }
+.cmp-who { font-size: 13px !important; font-weight: 800; color: var(--ink-3); }
+.cmp-card.same .cmp-who { color: var(--blue); }
+@media (max-width: 760px) { .cmp-grid { grid-template-columns: 1fr; } .compare { padding: 22px 18px; } }
+
+/* ---------- Steps ---------- */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px 24px; display: grid; gap: 8px; align-content: start; position: relative; }
+.steps li::before { content: "STEP " counter(s); font-family: var(--font-num); font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--blue); }
+.steps h3 { font-size: 19px; font-weight: 800; }
+.steps p { color: var(--ink-2); font-size: 15px; }
+.steps-note { margin-top: 18px; font-size: 14px; color: var(--ink-3); }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---------- Situation + mentors ---------- */
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.tab {
+  font: inherit; text-align: left; cursor: pointer; color: var(--ink);
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r-md);
+  padding: 16px 16px 14px; display: grid; gap: 4px; transition: border-color .15s ease, background .15s ease;
+}
+.tab b { font-size: 16px; font-weight: 800; }
+.tab span { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+.tab:hover { border-color: var(--blue-light); }
+.tab[aria-pressed="true"] { border-color: var(--indigo); background: var(--tint-blue); box-shadow: inset 0 0 0 1px var(--indigo); }
+@media (max-width: 860px) { .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tabs .tab:first-child { grid-column: 1 / -1; } }
+
+.list-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 34px 0 16px; flex-wrap: wrap; }
+.list-head h3 { font-size: 22px; font-weight: 800; }
+.list-head p { font-size: 14px; color: var(--ink-3); }
+.count { font-family: var(--font-num); color: var(--blue); }
+
+.mentors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 960px) { .mentors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .mentors { grid-template-columns: 1fr; } }
+.m-card { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--r-lg); padding: 22px; display: grid; grid-template-rows: auto auto 1fr auto auto auto; gap: 14px; transition: border-color .15s ease, transform .15s ease; }
+.m-card:hover { border-color: var(--indigo); transform: translateY(-2px); }
+.m-top { display: flex; gap: 12px; align-items: center; }
+.avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; color: #fff; }
+.m-org { font-weight: 800; font-size: 16px; line-height: 1.35; }
+.m-role { font-size: 14px; color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: var(--bg-cool); color: var(--ink-2); }
+.chip.hr { background: var(--tint-peach); color: var(--coral); }
+.chip.pass { background: var(--tint-lav); color: var(--indigo); }
+.chip.ok { background: var(--tint-ice); color: #0a7fae; }
+.m-quote { font-size: 15px; font-weight: 700; line-height: 1.55; }
+.m-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; flex-wrap: wrap; }
+.m-meta .price { font-family: var(--font-num); font-weight: 800; font-size: 17px; }
+.m-meta .price small { font-family: var(--font-sans); font-weight: 500; font-size: 13px; color: var(--ink-3); }
+.m-meta .rate { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.m-meta .rate b { color: #f5a400; }
+.m-review { font-size: 13px; color: var(--ink-2); background: var(--bg-cool); border-radius: var(--r-sm); padding: 10px 12px; margin-top: -4px; }
+.m-card .btn { width: 100%; padding: 13px; font-size: 15px; }
+.empty { grid-column: 1 / -1; text-align: center; padding: 48px 20px; border: 1.5px dashed var(--line); border-radius: var(--r-lg); color: var(--ink-2); }
+.empty button { margin-top: 14px; }
+
+/* ---------- Coupon ---------- */
+.coupon-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.coupon-grid .head { margin-bottom: 28px; }
+.howto { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: h; }
+.howto li { counter-increment: h; display: flex; gap: 12px; align-items: flex-start; font-size: 16px; color: var(--ink); }
+.howto li::before { content: counter(h); flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--tint-blue); color: var(--indigo); font-family: var(--font-num); font-weight: 800; font-size: 13px; display: grid; place-items: center; margin-top: -1px; }
+.howto b { font-weight: 800; }
+.ticket {
+  --notch-x: 32px;
+  position: relative; color: #fff; border-radius: 22px; padding: 32px 76px 32px 28px;
+  background: linear-gradient(135deg, #5d65ff 0%, #4d55f5 55%, #3f46e0 100%);
+  box-shadow: 0 24px 48px -20px rgba(77, 85, 245, .55);
+  display: grid; gap: 12px; justify-items: start;
+}
+.ticket::before, .ticket::after { content: ""; position: absolute; right: var(--notch-x); width: 22px; height: 22px; margin-right: -11px; border-radius: 50%; background: var(--bg); }
+.ticket::before { top: -11px; }
+.ticket::after { bottom: -11px; }
+.ticket .t-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; opacity: .95; }
+.ticket .t-tag::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #ffd200; }
+.t-amount { display: flex; align-items: baseline; gap: 6px; }
+.t-amount b { font-family: var(--font-num); font-size: clamp(44px, 7vw, 60px); font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+.t-amount span { font-size: 20px; font-weight: 700; }
+.t-scope { font-size: 14px; line-height: 1.55; opacity: .9; }
+.t-until { background: #ffd200; color: #1c1c1c; font-size: 13px; font-weight: 800; padding: 5px 12px; border-radius: 999px; }
+.t-code { display: flex; gap: 8px; width: 100%; margin-top: 4px; }
+.t-input {
+  flex: 1; min-width: 0; font: inherit; font-family: var(--font-num); font-weight: 800; font-size: 20px; letter-spacing: .08em; color: #fff;
+  background: rgba(255,255,255,.1); border: 1.5px dashed rgba(255,255,255,.7); border-radius: 8px; padding: 12px 16px;
+}
+.t-copy { flex: none; font: inherit; font-weight: 800; font-size: 15px; color: #3a43e0; background: #fff; border: 0; border-radius: 8px; padding: 0 20px; cursor: pointer; }
+.t-copy:hover { filter: brightness(.96); }
+.ticket-rail { position: absolute; top: 0; bottom: 0; right: var(--notch-x); border-right: 1.5px dashed rgba(255,255,255,.45); }
+@media (max-width: 860px) { .coupon-grid { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 420px) { .ticket { padding-right: 56px; --notch-x: 22px; } .t-code { flex-direction: column; } .t-copy { padding: 12px; } }
+
+/* ---------- Reviews ---------- */
+.reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 960px) { .reviews { grid-template-columns: 1fr; } }
+.rv { background: var(--surface); border-radius: var(--r-lg); padding: 24px; display: grid; gap: 14px; align-content: start; border: 1px solid var(--line); }
+.rv dl { margin: 0; display: grid; gap: 12px; }
+.rv dt { font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+.rv dt.b { color: var(--ink-3); }
+.rv dt.p { color: var(--coral); }
+.rv dt.a { color: var(--blue); }
+.rv dd { margin: 2px 0 0; font-size: 15px; line-height: 1.6; }
+.rv dd.a { font-weight: 700; }
+.rv-foot { border-top: 1px solid var(--line); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-3); flex-wrap: wrap; }
+.rv-foot a { color: var(--blue); font-weight: 700; text-decoration: none; }
+
+/* ---------- FAQ ---------- */
+.faq { display: grid; gap: 10px; max-width: 820px; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); }
+.faq summary { list-style: none; cursor: pointer; padding: 20px 22px; font-weight: 700; font-size: 16px; display: flex; gap: 12px; align-items: flex-start; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::before { content: "Q"; font-family: var(--font-num); font-weight: 800; color: var(--blue); }
+.faq summary::after { content: "+"; margin-left: auto; font-size: 20px; line-height: 1; color: var(--ink-3); transition: transform .15s ease; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .a { padding: 0 22px 20px 46px; color: var(--ink-2); font-size: 15px; }
+.fill { background: var(--tint-peach); color: var(--coral); border-radius: 4px; padding: 0 4px; font-weight: 700; }
+
+/* ---------- Final CTA ---------- */
+.final { background: var(--hero-bg); color: var(--ink); text-align: center; }
+.final .wrap { padding-block: 80px; display: grid; gap: 16px; justify-items: center; }
+.final h2 { font-size: clamp(26px, 4.4vw, 40px); font-weight: 800; }
+.final p { color: var(--ink-2); font-size: 17px; }
+.final .hand { font-family: var(--font-hand); font-size: 28px; color: var(--coral); line-height: 1; }
+.final .btn { margin-top: 12px; }
+
+footer { background: var(--bg-cool); color: var(--ink-3); font-size: 13px; }
+footer .wrap { padding-block: 32px 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+/* ---------- Mobile sticky CTA ---------- */
+.dock { display: none; }
+@media (max-width: 760px) {
+  .dock {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: var(--bg); border-top: 1px solid var(--line);
+  }
+  .dock .btn { width: 100%; }
+  footer .wrap { padding-bottom: 104px; }
+  .section { padding-block: 64px; }
+}
+
+.toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; z-index: 60; max-width: calc(100% - 32px); text-align: center; }
+</style>
+
+<div class="draft"><div class="wrap"><b>시안</b><span>멘토 정보는 실제 상세페이지 기준이에요. 후기 섹션과 주황색 [ ] 칸은 아직 예시예요.</span></div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo-link" href="https://www.letscareer.co.kr/" aria-label="렛츠커리어 홈"><img class="logo" src="logo-letscareer.png" alt="LETS CAREER"></a>
+    <nav class="nav" aria-label="렛츠커리어 메뉴">
+      <a href="https://www.letscareer.co.kr/">홈</a>
+      <a class="pass" href="https://www.letscareer.co.kr/membership-marketing">
+        <span class="sparkle" aria-hidden="true">✦<small>✦</small></span>
+        <span class="shine">마케팅 취준 올인원 패스</span>
+        <span class="new" aria-label="새 메뉴">N</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>또 떨어지기 전,<br><span class="em">대기업 현직자에게</span><br><span id="h1Last">탈락 이유를 확인해보세요</span></h1>
+        <div class="badges">
+          <span class="badge-on">개발·PM·마케팅 등 7개 직무</span>
+          <span class="badge-on">대기업 현직 멘토 9명</span>
+          <span class="badge-on">실시간 1:1 멘토링</span>
+        </div>
+        <p class="sub">떨어진 서류와 그때의 고민을 그대로 가져오세요.<br>실시간 1:1 심층 분석으로, 다음 지원 전에 무엇을 고칠지 함께 정해드려요.</p>
+        <div class="ctas">
+          <a class="btn" href="#situation">대기업 멘토 찾기</a>
+          <a class="btn ghost" href="https://www.letscareer.co.kr/program?catalog=mentoring" target="_blank" rel="noopener">전체 멘토 보기 →</a>
+        </div>
+      </div>
+
+      <div class="doc-stage" aria-label="멘토가 탈락한 자기소개서에 남긴 코멘트 예시">
+        <article class="doc">
+          <div class="doc-meta"><b>2026 하반기 신입 공채 · 자기소개서</b><span>2번 문항</span></div>
+          <span class="stamp">서류 불합격</span>
+          <p class="doc-q">Q. 본인이 주도적으로 문제를 해결한 경험을 기술하시오. (700자)</p>
+          <p><span class="strike">저는 어릴 때부터 책임감이 강하다는 말을 자주 들었습니다.</span> 대학교 3학년 때 학회 운영진으로 활동하며 신입 회원 이탈 문제를 겪었습니다.</p>
+          <p>저는 <span class="circle">소통의 중요성</span>을 깨닫고 회원들과 적극적으로 대화했고, 그 결과 <span class="mark">분위기가 좋아지고 많은 회원이 남게 되었습니다.</span></p>
+          <p>이 경험을 통해 귀사에서도 주도적으로 문제를 해결하는 인재가 되겠습니다.</p>
+          <p class="doc-count">642 / 700자</p>
+        </article>
+        <div class="note n1">이 표현은 지원자 절반이<br>똑같이 쓰는 말이에요</div>
+        <div class="note n2">"많은 회원"은 몇 명에서<br>몇 명이 됐는지 숫자로 써주세요</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. EMPATHY -->
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">혹시 지금</p>
+        <h2 class="h2">이런 상태인가요?</h2>
+      </div>
+      <div class="empathy-grid">
+        <div class="sms" aria-label="불합격 안내 문자 예시">
+          <div class="sms-top"><span>○○그룹 채용</span><span>오후 6:02</span></div>
+          <div class="bubble"><span class="bp">[Web발신]<br>[○○그룹] 하반기 신입 채용 서류전형 결과 안내</span><span class="bp">안녕하세요, ○○그룹 채용 담당자입니다. 귀하의 뛰어난 역량에도 불구하고 <b>아쉽게도 이번 서류전형에서는 좋은 소식을 전해드리지 못하게 되었습니다.</b></span><span class="bp">앞날에 건승을 기원합니다.</span></div>
+          <p class="sms-after">…그래서, <em>어디가 문제</em>였을까요?</p>
+        </div>
+        <div>
+          <ul class="checks">
+            <li><input type="checkbox" id="c1"><label for="c1">불합격 문자만 받고, 어디가 문제였는지는 끝내 몰라요</label></li>
+            <li><input type="checkbox" id="c2"><label for="c2">다음 공채에도 결국 같은 서류를 조금 고쳐서 낼 것 같아요</label></li>
+            <li><input type="checkbox" id="c3"><label for="c3">스터디원, 친구 피드백은 서로 비슷한 이야기만 오가요</label></li>
+            <li><input type="checkbox" id="c4"><label for="c4">붙은 사람의 서류와 내 서류가 뭐가 다른지 모르겠어요</label></li>
+          </ul>
+          <p class="turn">문제는 노력이 아니라,<br><strong>평가자의 시선을 들어볼 기회가 없었다는 것</strong>일지도 몰라요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. WHY -->
+  <section class="section cool" id="why">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">왜 대기업 현직 멘토인가</p>
+        <h2 class="h2">취준생의 눈이 아니라,<br>같은 직무 현직자의 눈으로</h2>
+      </div>
+      <div class="why">
+        <div class="why-item">
+          <span class="why-tag">같은 직무</span>
+          <h3>내 직무를 아는 사람이 봅니다</h3>
+          <p>개발, 연구, PM, 데이터, 마케팅, 영업, 전략기획까지. 내가 지원하는 직무와 가까운 현직자에게 그 직무의 언어로 피드백 받아요.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-tag">직접 통과한 경험</span>
+          <h3>대기업 채용을 직접 통과한 사람이 봅니다</h3>
+          <p>멘토 모두 대기업 서류와 면접을 거쳐 입사했어요. 어디서 걸리기 쉬운지 경험으로 알아요.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-tag">현직 기준</span>
+          <h3>지금의 기준으로 봅니다</h3>
+          <p>몇 년 전 합격 공식이 아니라, 지금 회사 안에서 보는 기준으로 이야기해요.</p>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="cmp-head"><h3>같은 문장, 다른 피드백</h3><span class="cmp-tag">예시</span></div>
+        <div class="cmp-src"><span>PM 지원자의 자기소개서 문장</span>"서비스 개선 프로젝트에서 사용자 인터뷰를 진행하고 기능을 개선해 만족도를 높였습니다."</div>
+        <div class="cmp-grid">
+          <div class="cmp-card generic">
+            <p class="cmp-who">흔히 듣는 피드백</p>
+            <p>"좀 더 구체적으로 써보세요. 성과를 강조하면 좋을 것 같아요."</p>
+          </div>
+          <div class="cmp-card same">
+            <p class="cmp-who">같은 직무 현직자의 피드백</p>
+            <p>"PM 서류라면 '왜 이 기능이었는지'가 먼저 보여야 해요. 인터뷰 몇 명에게서 어떤 문제를 발견했고, 개선 후 어떤 지표가 얼마나 바뀌었는지 숫자로 써주세요."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. HOW -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">진행 방식</p>
+        <h2 class="h2">떨어진 서류 하나면, 시작할 수 있어요</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>탈락한 서류를 그대로 보내주세요</h3><p>고치지 않은 원본이 좋아요. 그래야 진짜 원인이 보여요.</p></li>
+        <li><h3>멘토가 평가자 시선으로 미리 읽어요</h3><p>라이브 전에 서류를 먼저 검토하고 짚을 부분을 정리해요.</p></li>
+        <li><h3>1:1 라이브로 원인과 방향을 잡아요</h3><p>왜 떨어졌는지, 다음엔 무엇을 바꿔야 하는지 직접 묻고 답해요.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5 + 6. SITUATION & MENTORS -->
+  <section class="section cool" id="situation">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">직무별 멘토 추천</p>
+        <h2 class="h2">어떤 직무를 준비하나요?</h2>
+        <p class="lede">내 지원 직무와 가까운 현직자에게 피드백 받아보세요.</p>
+      </div>
+      <div class="tabs" role="group" aria-label="직무 선택">
+        <button class="tab" type="button" data-f="all" aria-pressed="true"><b>전체 보기</b><span>대기업 현직 멘토 9명</span></button>
+        <button class="tab" type="button" data-f="dev" aria-pressed="false"><b>개발·연구</b><span>SW 개발, AI·연구개발 · 3명</span></button>
+        <button class="tab" type="button" data-f="pm" aria-pressed="false"><b>PM·데이터</b><span>서비스 기획·PM, 데이터 분석 · 2명</span></button>
+        <button class="tab" type="button" data-f="mkt" aria-pressed="false"><b>마케팅·영업</b><span>마케팅, 영업마케팅 · 2명</span></button>
+        <button class="tab" type="button" data-f="biz" aria-pressed="false"><b>전략·기획</b><span>전략기획, 사업개발 · 2명</span></button>
+      </div>
+
+      <div class="list-head" id="mentors">
+        <h3>지금 만날 수 있는 대기업 현직 멘토 <span class="count" id="count">9</span><span class="count">명</span></h3>
+        <p>카드를 누르면 멘토 상세페이지로 이동해요</p>
+      </div>
+      <div class="mentors" id="mentorList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- COUPON -->
+  <section class="section" id="coupon">
+    <div class="wrap coupon-grid">
+      <div>
+        <div class="head">
+          <p class="eyebrow">할인 쿠폰</p>
+          <h2 class="h2">대기업 멘토링 쿠폰으로<br><span data-coupon="amount"></span>원 즉시 할인 받아보세요</h2>
+        </div>
+        <ol class="howto">
+          <li>원하는 멘토 상세페이지에서 멘토링을 신청해요.</li>
+          <li>결제창의 <b>쿠폰 등록</b> 칸에 <b data-coupon="code"></b>를 입력하고 등록해요.</li>
+          <li>결제 금액에서 <span data-coupon="amount"></span>원이 차감된 것을 확인하고 신청을 완료해요.</li>
+        </ol>
+      </div>
+      <div class="ticket">
+        <span class="ticket-rail" aria-hidden="true"></span>
+        <p class="t-tag">공채 탈락 후 서류 다시 보기 쿠폰</p>
+        <p class="t-amount"><b data-coupon="amount"></b><span>원 할인</span></p>
+        <p class="t-scope">대기업 현직 멘토 1:1 LIVE 멘토링<br>멘토 9명 전원 적용</p>
+        <p class="t-until">⏰ <span data-coupon="until"></span>까지 사용 가능</p>
+        <div class="t-code">
+          <input id="couponCode" class="t-input" type="text" readonly aria-label="쿠폰 코드">
+          <button class="t-copy" id="couponCopy" type="button">복사하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REVIEWS -->
+  <section class="section cool" id="reviews">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">후기</p>
+        <h2 class="h2">먼저 떨어져 본 사람들의 이야기</h2>
+        <p class="lede pipe">공채 탈락 후 멘토링을 받은 분들의 후기를 모았어요. <span class="fill">[아래 3개는 예시 · 실제 후기로 교체]</span></p>
+      </div>
+      <div class="reviews">
+        <article class="rv">
+          <dl>
+            <div><dt class="b">받기 전</dt><dd>하반기 5곳 서류 전부 탈락. 경험은 많은데 왜 떨어지는지 몰랐어요.</dd></div>
+            <div><dt class="p">멘토가 짚어준 점</dt><dd>경험을 나열만 하고, 그래서 무엇을 바꿨는지 결과가 하나도 없었어요.</dd></div>
+            <div><dt class="a">이후</dt><dd class="a">문항마다 결론과 숫자를 첫 줄에 두는 구조로 전부 다시 썼어요.</dd></div>
+          </dl>
+          <div class="rv-foot"><span>취준생 · 전자 계열사 멘토 · 자소서</span><a href="#mentors">이 멘토 보기 →</a></div>
+        </article>
+        <article class="rv">
+          <dl>
+            <div><dt class="b">받기 전</dt><dd>최종 면접까지 갔다가 떨어졌어요. 분위기는 좋았는데 이유를 모르겠더라고요.</dd></div>
+            <div><dt class="p">멘토가 짚어준 점</dt><dd>꼬리 질문에서 답이 처음 답변과 어긋나는 걸 면접관 입장에서 바로 짚어줬어요.</dd></div>
+            <div><dt class="a">이후</dt><dd class="a">핵심 경험 3개를 깊게 파서, 어떤 질문이 와도 같은 이야기로 돌아오게 준비했어요.</dd></div>
+          </dl>
+          <div class="rv-foot"><span>신입 1년차 · 화학 계열사 멘토 · 모의면접</span><a href="#mentors">이 멘토 보기 →</a></div>
+        </article>
+        <article class="rv">
+          <dl>
+            <div><dt class="b">받기 전</dt><dd>중견기업 1년차인데, 대기업 신입으로 다시 지원할지 고민이었어요.</dd></div>
+            <div><dt class="p">멘토가 짚어준 점</dt><dd>지금 경력이 중고신입 서류에서 어떻게 읽히는지 현직자 기준으로 설명해줬어요.</dd></div>
+            <div><dt class="a">이후</dt><dd class="a">지원 회사를 좁히고, 1년 경력을 강점으로 쓰는 방향을 잡았어요.</dd></div>
+          </dl>
+          <div class="rv-foot"><span>신입 1년차 · IT 플랫폼 멘토 · 커리어</span><a href="#mentors">이 멘토 보기 →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2">신청 전에 많이 묻는 질문</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>멘토의 소속과 경력은 어디서 볼 수 있나요?</summary>
+          <p class="a">멘토 카드의 "상세보기"를 누르면 멘토 상세페이지에서 소속, 경력, 멘토링에서 다루는 내용을 확인할 수 있어요.</p>
+        </details>
+        <details>
+          <summary>제가 지원한 직무와 멘토 직무가 달라도 되나요?</summary>
+          <p class="a">괜찮아요. 대기업 서류와 면접은 직무가 달라도 공통으로 보는 기준이 있어요. 직무 전문 지식이 꼭 필요하다면, 비슷한 직무 멘토를 상세페이지에서 찾아보세요.</p>
+        </details>
+        <details>
+          <summary>떨어진 서류를 고치지 않고 그대로 가져가도 되나요?</summary>
+          <p class="a">오히려 그대로가 좋아요. 원본을 봐야 어디서 탈락했는지 정확히 짚을 수 있어요.</p>
+        </details>
+        <details>
+          <summary>제 서류가 외부에 유출되지는 않나요?</summary>
+          <p class="a"><span class="fill">[보안 정책]</span> 예) 제출 서류는 멘토링 목적으로만 쓰이며, 멘토링 종료 후 N일 뒤 삭제돼요.</p>
+        </details>
+        <details>
+          <summary>멘토링은 어떻게 진행되나요?</summary>
+          <p class="a"><span class="fill">[진행 방식]</span> 예) 신청 후 일정을 조율하고, 화상으로 1:1 라이브 멘토링을 진행해요.</p>
+        </details>
+        <details>
+          <summary>취소나 환불이 가능한가요?</summary>
+          <p class="a"><span class="fill">[환불 규정]</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <p class="hand">이번엔 다르게!</p>
+      <h2>다음 공채 전에,<br>같은 서류를 또 내지 않도록.</h2>
+      <p>대기업 현직 멘토가 기다리고 있어요.</p>
+      <a class="btn" href="#situation">대기업 멘토 찾기</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="logo" src="logo-letscareer.png" alt="LETS CAREER" style="height:22px">
+    <span>1:1 LIVE 멘토링 · 대기업 현직 멘토 기획전</span>
+  </div>
+</footer>
+
+<div class="dock"><a class="btn" id="dockBtn" href="#mentors">멘토 보기</a></div>
+
+<script>
+// letscareer.co.kr/live-mentoring/{id} 상세페이지에 공개된 정보만 사용 (2026-10-29 수집).
+// org·role·prev는 상세페이지의 소속/경력 표기 그대로, tags는 상세페이지 본문에 적힌 내용만.
+// 순서: 대기업 공채 서류·면접을 직접 다루는 멘토 먼저. job: 직무별 탭(dev·pm·mkt·biz) 분류.
+const MENTORS = [
+  { id: 13276, name: "제이미", ind: "IT", color: "#4d55f5",
+    org: "CJ그룹", role: "개발자",
+    prev: "",
+    tags: ["공채 2회 도전 경험", "렛츠커리어 LIVE 클래스 2회"],
+    quote: "서류부터 면접까지 막히는 지점을 AI 시대 채용 기준에 맞춰 현실적으로 짚어 드릴게요.",
+    job: "dev" },
+  { id: 3929, name: "리아", ind: "전략", color: "#f2694b",
+    org: "모빌리티 제조업 대기업", role: "전략기획",
+    prev: "전) 2차전지 제조업 대기업 영업마케팅 · 패션 중견기업 서비스 기획",
+    tags: [],
+    quote: "같은 소재로 AI를 활용해도 잘 읽히는 자소서는 따로 있습니다.",
+    job: "biz" },
+  { id: 5357, name: "매튜", ind: "사업", color: "#0a8fc4",
+    org: "현대차그룹 주요 계열사 (현기모 등)", role: "매니저",
+    prev: "전) LG전자 사원",
+    tags: ["문과 직무 전반"],
+    quote: "특정 직무에 한정하지 않고 문과 직무 전반의 취업 준비를 함께합니다.",
+    job: "biz" },
+  { id: 3928, name: "나비", ind: "영업", color: "#2d8a5f",
+    org: "반도체 대기업", role: "영업마케팅",
+    prev: "전) 외국계 IT인프라 대기업 B2B영업",
+    tags: ["자소서 컨셉부터 문항별 피드백"],
+    quote: "같은 경험이더라도 무엇을 강조하느냐에 따라 전혀 다른 자소서가 될 수 있어요.",
+    job: "mkt" },
+  { id: 14758, name: "바다", ind: "R&D", color: "#7a52e0",
+    org: "현대 계열사", role: "연구원",
+    prev: "전) LG 계열사 선임",
+    tags: ["대기업 AI 개발자 취업"],
+    quote: "대기업 AI 개발자로 취업을 꿈꾸는 모든 분들께 도움이 되고 싶습니다.",
+    job: "dev" },
+  { id: 5895, name: "트로이", ind: "PM", color: "#c0571f",
+    org: "카카오 그룹", role: "Product Manager",
+    prev: "",
+    tags: ["포트폴리오 사전 검토", "피드백 문서 제공"],
+    quote: "현직 PM의 시선으로 포트폴리오와 취업 전략을 실전처럼 점검해드려요.",
+    job: "pm" },
+  { id: 16385, name: "호이", ind: "마케팅", color: "#d1407a",
+    org: "네카라쿠배", role: "마케터",
+    prev: "전) 에이블리 파트너십 매니저 · 마케팅 대행사 AE",
+    tags: ["중고신입 대기업 합격"],
+    quote: "중고신입으로 대기업에 합격하기까지 겪은 시행착오를 아낌없이 나눌게요.",
+    job: "mkt" },
+  { id: 18644, name: "Jino", ind: "데이터", color: "#1f7f8c",
+    org: "쿠팡", role: "데이터 분석",
+    prev: "전) 당근 PM 인턴",
+    tags: ["26 하반기 서류 합격 경험"],
+    quote: "PM에서 데이터·AI로 넓혀 온 실무 경험으로 직무 선택과 이력서·포트폴리오 방향을 잡아드려요.",
+    job: "pm" },
+  { id: 1235, name: "널", ind: "개발", color: "#5a6478",
+    org: "SI 대기업", role: "풀스택 개발",
+    prev: "전) 모빌리티 제조업 차량 멀티미디어 어플 개발",
+    tags: [],
+    quote: "내 경험을 읽기 쉽게, 듣기 쉽게 전달하는 방법을 함께 고민해봐요.",
+    job: "dev" }
+];
+const DETAIL_URL = id => `https://www.letscareer.co.kr/live-mentoring/${id}`;
+
+const list = document.getElementById("mentorList");
+const count = document.getElementById("count");
+
+function card(m, f) {
+  const chips = ['<span class="chip ok">현직</span>']
+    .concat(m.tags.map(t => `<span class="chip pass">${t}</span>`)).join("");
+  return `<article class="m-card">
+    <div class="m-top"><span class="avatar" style="background:${m.color}">${m.ind}</span>
+      <div><div class="m-org">${m.org}</div><div class="m-role">${m.name} 멘토 · ${m.role}</div></div></div>
+    <div class="chips">${chips}</div>
+    <p class="m-quote">"${m.quote}"</p>
+    <div class="m-meta"><span class="price">39,000원 <small>30분 · 60분 69,000원</small></span>
+      <span class="rate">신규 오픈</span></div>
+    ${m.prev ? `<p class="m-review">${m.prev}</p>` : ""}
+    <a class="btn" href="${DETAIL_URL(m.id)}" target="_blank" rel="noopener">상세보기 · 신청하기</a>
+  </article>`;
+}
+
+function render(f) {
+  const items = MENTORS.filter(m => f === "all" || m.job === f);
+  count.textContent = items.length;
+  list.innerHTML = items.length
+    ? items.map(m => card(m, f)).join("")
+    : '<div class="empty"><p>이 상황에 맞는 멘토를 준비하고 있어요.</p><button class="btn ghost" type="button" data-reset>전체 멘토 보기</button></div>';
+}
+
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-pressed", String(x === t)));
+  render(t.dataset.f);
+}));
+
+list.addEventListener("click", e => {
+  if (e.target.closest("[data-reset]")) document.querySelector('.tab[data-f="all"]').click();
+});
+
+render("all");
+
+// 히어로 서류 이미지: 위 끝은 제목 마지막 줄, 아래 끝은 버튼 아래 끝에 맞춤 (2단 레이아웃일 때만)
+const heroDoc = document.querySelector(".doc");
+const h1Last = document.getElementById("h1Last");
+const heroBtn = document.querySelector(".hero .ctas .btn");
+function fitDoc() {
+  heroDoc.style.minHeight = "";
+  if (!window.matchMedia("(min-width: 901px)").matches) return;
+  const h = heroBtn.getBoundingClientRect().bottom - h1Last.getBoundingClientRect().top;
+  if (h > 0) heroDoc.style.minHeight = Math.round(h) + "px";
+}
+fitDoc();
+window.addEventListener("resize", fitDoc);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitDoc);
+
+// 쿠폰 정보: 실제 값으로 교체
+const COUPON = { code: "[쿠폰 코드]", amount: "[금액]", until: "[사용 기한]" };
+document.querySelectorAll("[data-coupon]").forEach(el => { el.textContent = COUPON[el.dataset.coupon]; });
+const couponInput = document.getElementById("couponCode");
+const couponCopy = document.getElementById("couponCopy");
+couponInput.value = COUPON.code;
+couponCopy.addEventListener("click", () => {
+  const done = () => {
+    couponCopy.textContent = "복사됐어요";
+    setTimeout(() => { couponCopy.textContent = "복사하기"; }, 1800);
+  };
+  const fallback = () => { couponInput.focus(); couponInput.select(); couponCopy.textContent = "길게 눌러 복사"; };
+  try {
+    navigator.clipboard.writeText(COUPON.code).then(done, fallback);
+  } catch (e) { fallback(); }
+});
+
+// 모바일 하단 버튼: 멘토 목록을 지나면 '신청하러 가기'로 전환
+const dockBtn = document.getElementById("dockBtn");
+const reviews = document.getElementById("reviews");
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([e]) => {
+    const passed = e.boundingClientRect.top < window.innerHeight;
+    dockBtn.textContent = passed ? "신청하러 가기" : "멘토 보기";
+  }, { threshold: [0, 1] }).observe(reviews);
+}
+</script>
