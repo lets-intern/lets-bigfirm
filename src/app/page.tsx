@@ -52,6 +52,8 @@ const REASONS = [
   },
 ];
 
+const MENTOR_FEEDBACK_POINTS = ["직무 관점 제시", "문제 발견 과정", "정량 지표로 증명"];
+
 const COMMONS: ReactNode[] = [
   "모두 1년차 이상의 현직자로, 현장 경험을 생생하게 들려주실 수 있어요",
   // 9명 feedbackMenteeCount 합 (letscareer.co.kr/mentors/{id}, 2026-10-30)
@@ -217,31 +219,58 @@ export default async function Home() {
         </div>
 
         <div className="mt-6 grid gap-4 rounded-[20px] border border-line bg-white px-[18px] py-[22px] sm:p-7">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <h3 className="text-xl font-extrabold">같은 문장, 다른 피드백</h3>
-            <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-bold text-ink-3">예시</span>
-          </div>
-          <div className="rounded-[10px] bg-paper px-4 py-3.5 text-[15px] leading-[1.6] text-[#26262b]">
-            <span className="mb-1 block text-xs font-bold text-[#77777f]">PM 지원자의 자기소개서 문장</span>
-            &quot;서비스 개선 프로젝트에서 사용자 인터뷰를 진행하고{" "}
-            <mark className="bg-transparent bg-[linear-gradient(transparent_55%,#c7caff_55%)] font-semibold text-inherit">
-              기능을 개선해 만족도를 높였습니다
-            </mark>
-            .&quot;
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="grid content-start gap-2 rounded-[15px] bg-cool px-5 py-[18px]">
-              <p className="text-[13px] font-extrabold text-ink-3">흔히 듣는 피드백</p>
-              <p className="text-[15px] leading-[1.65] text-ink-2">
-                &quot;좀 더 구체적으로 써보세요. 성과를 강조하면 좋을 것 같아요.&quot;
+          <h3 className="text-xl font-extrabold">같은 문장, 다른 피드백</h3>
+          <div className="grid gap-4 md:grid-cols-2">
+            <article
+              aria-label="PM 지원자의 자기소개서 문항 예시"
+              className="flex flex-col rounded-md bg-paper px-5 pt-4 pb-3.5 text-[15px] leading-[1.75] text-[#26262b] shadow-[0_14px_32px_-20px_rgba(40,50,140,.35)] sm:px-6"
+            >
+              <div className="mb-3.5 flex items-baseline justify-between gap-3 border-b border-paper-line pb-2 text-xs text-[#77777f]">
+                <b className="text-[13px] text-[#26262b]">신입 공채 · 서비스기획(PM) · 자기소개서</b>
+                <span className="shrink-0">3번 문항</span>
+              </div>
+              <p className="mb-2 text-[13px] font-bold text-[#4a4a52]">
+                Q. 지원 직무와 관련해 성과를 만들어낸 경험을 기술하시오. (800자)
               </p>
-            </div>
-            <div className="grid content-start gap-2 rounded-[15px] bg-brand-200 px-5 py-[18px] shadow-[inset_0_0_0_1.5px_var(--color-brand-600)]">
-              <p className="text-[13px] font-extrabold text-brand-600">대기업 현직 멘토의 피드백</p>
-              <p className="text-[15px] leading-[1.65] font-semibold">
-                &quot;PM 서류라면 &quot;왜 이 기능이었는지&quot;가 먼저 보여야 해요. 몇 명의 인터뷰이에게서 문제를
-                발견했고, 개선 후 어떤 지표가 얼마나 바뀌었는지 숫자로 명시합니다.&quot;
+              <p className="mb-2.5 text-[#8a8a90]">
+                <span>교내 중고거래 앱 운영 동아리에서 서비스 기획을 맡았습니다. </span>
+                <span className="text-[#26262b]">
+                  서비스 개선 프로젝트에서 사용자 인터뷰를 진행하고{" "}
+                  <mark className="bg-transparent bg-[linear-gradient(transparent_55%,#c7caff_55%)] font-semibold text-inherit">
+                    기능을 개선해 만족도를 높였습니다
+                  </mark>
+                  .
+                </span>
+                <span> 이 경험을 통해 사용자 중심으로 생각하는 자세를 배웠습니다…</span>
               </p>
+              <p className="mt-auto border-t border-paper-line pt-2 text-right text-xs text-[#77777f] tabular-nums">
+                612 / 800자
+              </p>
+            </article>
+            <div className="grid grid-rows-[auto_1fr] gap-3">
+              <div className="grid content-start gap-2 rounded-[15px] bg-cool px-5 py-[18px]">
+                <p className="text-[13px] font-extrabold text-ink-3">흔히 듣는 피드백</p>
+                <p className="text-[15px] leading-[1.65] text-ink-2">
+                  &quot;좀 더 구체적으로 써보세요. 성과를 강조하면 좋을 것 같아요.&quot;
+                </p>
+              </div>
+              <div className="grid content-start gap-2 rounded-[15px] bg-brand-200 px-5 py-[18px] shadow-[inset_0_0_0_1.5px_var(--color-brand-600)]">
+                <p className="text-[13px] font-extrabold text-brand-600">대기업 현직 멘토의 피드백</p>
+                <p className="text-[15px] leading-[1.65] font-semibold">
+                  &quot;PM 서류라면 &quot;왜 이 기능이었는지&quot;가 먼저 보여야 해요. 몇 명의 인터뷰이에게서 문제를
+                  발견했고, 개선 후 어떤 지표가 얼마나 바뀌었는지 숫자로 명시합니다.&quot;
+                </p>
+                <ul aria-label="흔히 듣는 피드백보다 나아진 점" className="mt-1 flex flex-wrap gap-1.5">
+                  {MENTOR_FEEDBACK_POINTS.map((point) => (
+                    <li
+                      key={point}
+                      className="rounded-full bg-white px-2.5 py-1 text-xs font-bold text-brand-600"
+                    >
+                      ✓ {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
