@@ -29,6 +29,18 @@
   --color-new: #ff3d00;
 
   --animate-shine: shine 2.8s linear infinite;
+  /* 할인 쿠폰: 배경 그라데이션이 천천히 흐른다 */
+  --animate-coupon-flow: coupon-flow 10s ease-in-out infinite;
+
+  @keyframes coupon-flow {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 
   @keyframes shine {
     0% {
@@ -43,6 +55,19 @@
 /* 히어로·마지막 CTA 배경 (letsgongchae.vercel.app 과 같은 연보라 그라데이션) */
 @utility bg-hero {
   background-image: linear-gradient(135deg, #f1f0ff 0%, #e9ecff 45%, #f6f7ff 100%);
+}
+
+/* 쿠폰 티켓 위·아래의 반원 홈. 흰 원을 덮지 않고 실제로 뚫어 그림자·배경이 비친다 */
+@utility ticket-notch {
+  --notch-x: 40px;
+  mask-image:
+    radial-gradient(circle 11px at calc(100% - var(--notch-x)) 0, transparent 10.5px, #000 11px),
+    radial-gradient(circle 11px at calc(100% - var(--notch-x)) 100%, transparent 10.5px, #000 11px);
+  mask-composite: intersect;
+
+  @media (width >= 421px) {
+    --notch-x: 64px;
+  }
 }
 
 /* 섹션 라벨 앞의 "| " */

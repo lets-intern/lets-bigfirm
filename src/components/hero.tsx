@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { LETSCAREER_MENTORING_URL } from "@/lib/links";
 
-const BADGES = ["개발·PM·마케팅 등 7개 직무", "대기업 현직 멘토 9명", "실시간 1:1 멘토링"];
+const BADGES = ["대기업 현직 멘토 9명", "실시간 1:1 멘토링", "PM·마케팅·AI 등 4개 직무"];
 
 export function Hero() {
   const brandLineRef = useRef<HTMLSpanElement>(null);

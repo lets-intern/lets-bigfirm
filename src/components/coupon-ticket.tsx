@@ -20,36 +20,37 @@ export function CouponTicket() {
   };
 
   return (
-    <div className="relative grid min-w-0 justify-items-start gap-3 rounded-[22px] bg-[linear-gradient(135deg,#5d65ff_0%,#4d55f5_55%,#3f46e0_100%)] py-8 pr-[60px] pl-7 text-white shadow-[0_24px_48px_-20px_rgba(77,85,245,.55)] before:absolute before:-top-[11px] before:right-[40px] before:-mr-[11px] before:size-[22px] before:rounded-full before:bg-white after:absolute after:right-[40px] after:-bottom-[11px] after:-mr-[11px] after:size-[22px] after:rounded-full after:bg-white min-[421px]:pr-[100px] min-[421px]:before:right-[64px] min-[421px]:after:right-[64px]">
-      <span aria-hidden className="absolute inset-y-0 right-[40px] border-r-[1.5px] border-dashed border-white/45 min-[421px]:right-[64px]" />
-      <p className="inline-flex items-center gap-1.5 text-[13px] font-bold opacity-95 before:size-2.5 before:rounded-full before:bg-highlight">
-        공채 탈락 후 서류 다시 보기 쿠폰
-      </p>
-      <p className="flex items-baseline gap-1.5">
-        <b className="text-[clamp(44px,7vw,60px)] leading-none font-extrabold tracking-[-0.02em]">{COUPON.amount}</b>
-        <span className="text-xl font-bold">할인</span>
-      </p>
-      <p className="text-sm leading-[1.55] opacity-90">
-        대기업 현직 멘토 1:1 LIVE 멘토링
-        <br />
-        멘토 9명 전원 적용
-      </p>
-      <p className="rounded-full bg-highlight px-3 py-1 text-[13px] font-extrabold text-ink">⏰ {COUPON.from} ~ {COUPON.until} 사용 가능</p>
-      <div className="mt-1 flex w-full flex-col gap-2 min-[421px]:flex-row">
-        <input
-          ref={inputRef}
-          readOnly
-          value={COUPON.code}
-          aria-label="쿠폰 코드"
-          className="w-full min-w-0 flex-1 rounded-lg border-[1.5px] border-dashed border-white/70 bg-white/10 px-4 py-3 text-xl font-extrabold tracking-[.08em] text-white"
-        />
-        <button
-          type="button"
-          onClick={copy}
-          className="shrink-0 rounded-lg bg-white px-5 py-3 text-[15px] font-extrabold text-note-blue hover:brightness-95"
-        >
-          {label}
-        </button>
+    // 노치는 마스크로 뚫으므로, 그림자는 마스크 밖 래퍼의 drop-shadow 로 준다
+    <div className="min-w-0 drop-shadow-[0_18px_22px_rgba(38,42,156,.35)]">
+      <div className="ticket-notch relative grid min-w-0 justify-items-start gap-3 rounded-[22px] animate-coupon-flow bg-[linear-gradient(135deg,#262a9c_0%,#4d55f5_20%,#7a72ee_50%,#4d55f5_80%,#2a2fa8_100%)] bg-[length:200%_200%] py-8 pr-[60px] pl-7 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.16),inset_0_1px_0_rgba(255,255,255,.32)] min-[421px]:pr-[100px]">
+        <span aria-hidden className="absolute inset-y-0 right-[40px] border-r-[1.5px] border-dashed border-white/45 min-[421px]:right-[64px]" />
+        <p className="text-[13px] font-bold opacity-95">
+          대기업 공채 다시 한번 도전!
+        </p>
+        <p className="flex items-baseline gap-1.5">
+          <b className="text-[clamp(44px,7vw,60px)] leading-none font-extrabold tracking-[-0.02em]">{COUPON.amount}</b>
+          <span className="text-xl font-bold">할인</span>
+        </p>
+        <p className="text-sm leading-[1.55] opacity-90">
+          대기업 현직 멘토 1:1 LIVE 멘토링
+        </p>
+        <p className="rounded-full bg-white/15 px-3 py-1 text-[13px] font-extrabold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,.25)]">⏰ {COUPON.until}까지 사용 가능</p>
+        <div className="mt-1 flex w-full flex-col gap-2 min-[421px]:flex-row">
+          <input
+            ref={inputRef}
+            readOnly
+            value={COUPON.code}
+            aria-label="쿠폰 코드"
+            className="w-full min-w-0 flex-1 rounded-lg border-[1.5px] border-dashed border-white/70 bg-white/10 px-4 py-3 text-xl font-extrabold tracking-[.08em] text-white"
+          />
+          <button
+            type="button"
+            onClick={copy}
+            className="shrink-0 rounded-lg bg-white px-5 py-3 text-[15px] font-extrabold text-note-blue hover:brightness-95"
+          >
+            {label}
+          </button>
+        </div>
       </div>
     </div>
   );
