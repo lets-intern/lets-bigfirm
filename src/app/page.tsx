@@ -6,10 +6,10 @@ import { MobileDock } from "@/components/mobile-dock";
 import { COUPON } from "@/lib/coupon";
 
 const WORRIES = [
-  "불합격 문자만 받고, 어디가 문제였는지는 끝내 몰라요",
-  "다음 공채에도 결국 같은 서류를 조금 고쳐서 낼 것 같아요",
-  "스터디원, 친구 피드백은 서로 비슷한 이야기만 오가요",
-  "붙은 사람의 서류와 내 서류가 뭐가 다른지 모르겠어요",
+  "불합격 통보 받았지만 여전히 어디가, 왜 문제인지 모르겠어요",
+  "다음 공채에서는 꼭 합격하고 싶은데 벌써 막막해요",
+  "스터디원, 친구들에게는 늘 비슷한 피드백만 받고 있어요.",
+  "합격자와 내 서류의 차이점을 이해하고 수정하고 싶어요",
 ];
 
 const REASONS = [
@@ -102,7 +102,16 @@ export default function Home() {
 
       {/* 공감 */}
       <Section>
-        <SectionHead eyebrow="혹시 지금" title="이런 상태인가요?" />
+        <SectionHead
+          eyebrow="혹시 이런 고민 하고 있진 않나요?"
+          title={
+            <>
+              도착한 결과 문자,
+              <br />
+              여전히 막막할 뿐이라면
+            </>
+          }
+        />
         <div className="grid items-stretch gap-8 min-[861px]:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] min-[861px]:gap-12">
           <div
             aria-label="불합격 안내 문자 예시"
@@ -144,10 +153,10 @@ export default function Home() {
               ))}
             </ul>
             <p className="mt-7 text-[19px] leading-[1.6] font-medium">
-              문제는 노력이 아니라,
+              문제는 이력과 노력이 아니라,
               <br />
               <strong className="bg-[linear-gradient(transparent_60%,var(--color-brand-200)_60%)] font-extrabold">
-                평가자의 시선을 들어볼 기회가 없었다는 것
+                평가자의 시선에서 서류를 볼 기회가 없었기 때문
               </strong>
               일지도 몰라요.
             </p>
