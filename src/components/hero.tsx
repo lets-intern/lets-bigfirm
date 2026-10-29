@@ -6,22 +6,22 @@ import { LETSCAREER_MENTORING_URL } from "@/lib/links";
 const BADGES = ["개발·PM·마케팅 등 7개 직무", "대기업 현직 멘토 9명", "실시간 1:1 멘토링"];
 
 export function Hero() {
-  const lastLineRef = useRef<HTMLSpanElement>(null);
+  const brandLineRef = useRef<HTMLSpanElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const docRef = useRef<HTMLElement>(null);
 
-  // 서류 이미지: 위 끝은 제목 마지막 줄, 아래 끝은 버튼 아래 끝에 맞춘다 (2단 레이아웃일 때만)
+  // 서류 이미지: 위 끝은 제목 둘째 줄(대기업 현직자에게), 아래 끝은 버튼 아래 끝에 맞춘다 (2단 레이아웃일 때만)
   useEffect(() => {
     const doc = docRef.current;
-    const lastLine = lastLineRef.current;
+    const brandLine = brandLineRef.current;
     const button = buttonRef.current;
-    if (!doc || !lastLine || !button) return;
+    if (!doc || !brandLine || !button) return;
 
     const twoColumn = window.matchMedia("(min-width: 901px)");
     const fit = () => {
       doc.style.minHeight = "";
       if (!twoColumn.matches) return;
-      const height = button.getBoundingClientRect().bottom - lastLine.getBoundingClientRect().top;
+      const height = button.getBoundingClientRect().bottom - brandLine.getBoundingClientRect().top;
       if (height > 0) doc.style.minHeight = `${Math.round(height)}px`;
     };
 
@@ -38,9 +38,11 @@ export function Hero() {
           <h1 className="text-[clamp(32px,4.8vw,48px)] leading-[1.3] font-extrabold">
             또 떨어지기 전,
             <br />
-            <span className="text-brand-600">대기업 현직자에게</span>
+            <span ref={brandLineRef} className="text-brand-600">
+              대기업 현직자에게
+            </span>
             <br />
-            <span ref={lastLineRef}>탈락 이유를 확인해보세요</span>
+            탈락 이유를 확인해보세요
           </h1>
           <div className="mt-9 flex flex-wrap gap-2">
             {BADGES.map((badge) => (
@@ -82,7 +84,7 @@ export function Hero() {
   );
 }
 
-const NOTE = "absolute rounded-xl bg-white px-3 pt-2 pb-1.5 font-hand text-[22px] leading-[1.15] shadow-[0_10px_24px_-10px_rgba(10,15,80,.4)]";
+const NOTE = "absolute rounded-xl bg-white font-hand text-[22px] leading-[1.15]";
 
 function RejectedDocument({ docRef }: { docRef: React.RefObject<HTMLElement | null> }) {
   return (
@@ -91,14 +93,14 @@ function RejectedDocument({ docRef }: { docRef: React.RefObject<HTMLElement | nu
         ref={docRef}
         className="relative flex origin-bottom-left -rotate-[1.5deg] flex-col rounded-md bg-paper px-7 pt-6 pb-6 text-sm leading-[1.75] text-[#26262b] shadow-[0_24px_50px_-20px_rgba(40,50,140,.28)]"
       >
-        <div className="mb-3.5 flex items-baseline justify-between gap-3 border-b border-paper-line pb-2.5 text-xs text-[#77777f]">
+        <div className="mb-5 flex items-baseline justify-between gap-3 border-b border-paper-line pb-2.5 text-xs text-[#77777f]">
           <b className="text-[13px] text-[#26262b]">2026 하반기 신입 공채 · 자기소개서</b>
           <span>2번 문항</span>
         </div>
         <span className="absolute top-[22px] right-5 rotate-[8deg] rounded-lg border-4 border-double border-stamp px-4 py-1.5 text-[22px] leading-[1.3] font-extrabold tracking-[.1em] text-stamp opacity-85">
           서류 불합격
         </span>
-        <p className="mb-1.5 text-[13px] font-bold text-[#4a4a52]">
+        <p className="mb-3 text-[13px] font-bold text-[#4a4a52]">
           Q. 본인이 주도적으로 문제를 해결한 경험을 기술하시오. (700자)
         </p>
         <p>
@@ -114,20 +116,24 @@ function RejectedDocument({ docRef }: { docRef: React.RefObject<HTMLElement | nu
             분위기가 좋아지고 많은 회원이 남게 되었습니다.
           </span>
         </p>
+        <p className="mt-2">
+          이 과정에서 저는 리더십과 책임감을 기를 수 있었고, 어떤 어려움이 있어도 포기하지 않고 끝까지 노력하는
+          자세가 중요하다는 것을 배웠습니다.
+        </p>
         <p className="mt-2">이 경험을 통해 귀사에서도 주도적으로 문제를 해결하는 인재가 되겠습니다.</p>
         <p className="mt-auto border-t border-paper-line pt-2.5 text-right text-xs text-[#77777f] tabular-nums">
           642 / 700자
         </p>
       </article>
-      <div className={`${NOTE} top-[70px] -right-1.5 max-w-[260px] rotate-2 text-[#e8553a] min-[901px]:top-[79px] min-[901px]:-right-[18px]`}>
+      <div className={`${NOTE} px-3.5 pt-2.5 pb-2 shadow-[0_0_24px_-6px_rgba(10,15,80,.4)] top-[82px] -right-1.5 max-w-[260px] rotate-2 text-[#e8553a] min-[901px]:top-[91px] min-[901px]:-right-[18px]`}>
         이 표현은 지원자 절반이
         <br />
         똑같이 쓰는 말이에요
       </div>
-      <div className={`${NOTE} bottom-[26px] -left-1.5 max-w-[260px] -rotate-3 text-note-blue min-[901px]:-left-[26px]`}>
-        &quot;많은 회원&quot;은 몇 명에서
+      <div className={`${NOTE} px-3.5 pt-2.5 pb-2 shadow-[0_0_24px_-6px_rgba(10,15,80,.4)] bottom-[106px] -left-1.5 max-w-[260px] -rotate-3 text-note-blue min-[901px]:bottom-[70px] min-[901px]:-left-[26px]`}>
+        추상적이에요.
         <br />
-        몇 명이 됐는지 숫자로 써주세요
+        &quot;많은 회원&quot; 대신 숫자로 써주세요
       </div>
     </div>
   );
