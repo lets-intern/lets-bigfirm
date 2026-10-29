@@ -119,7 +119,7 @@ function RejectedDocument({ docRef }: { docRef: React.RefObject<HTMLElement | nu
           642 / 700자
         </p>
       </article>
-      <div className={`${NOTE} top-[70px] -right-1.5 max-w-[260px] rotate-2 text-[#e8553a] min-[901px]:top-24 min-[901px]:-right-[18px]`}>
+      <div className={`${NOTE} top-[70px] -right-1.5 max-w-[260px] rotate-2 text-[#e8553a] min-[901px]:top-[79px] min-[901px]:-right-[18px]`}>
         이 표현은 지원자 절반이
         <br />
         똑같이 쓰는 말이에요

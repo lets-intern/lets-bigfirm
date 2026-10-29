@@ -98,10 +98,6 @@ const FAQS: { question: string; answer: ReactNode }[] = [
 export default function Home() {
   return (
     <>
-      <div className="bg-ink py-2 text-center text-[13px] text-white">
-        <b className="text-[#13bcfe]">시안</b> 멘토 정보는 실제 상세페이지 기준이에요. 후기 섹션과 주황색 [ ] 칸은 아직 예시예요.
-      </div>
-
       <Hero />
 
       {/* 공감 */}
