@@ -62,7 +62,7 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap gap-2.5">
             <a
               ref={buttonRef}
-              href="#mentors-by-job"
+              href="#mentors-by-company"
               className="inline-flex items-center justify-center rounded-lg bg-brand-600 px-7 py-[15px] font-bold text-white hover:brightness-105 active:scale-[.98]"
             >
               대기업 멘토 찾기

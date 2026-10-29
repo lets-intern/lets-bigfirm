@@ -20,7 +20,7 @@ export function MobileDock() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white px-4 pt-2.5 pb-[calc(10px+env(safe-area-inset-bottom))] md:hidden">
       <a
-        href="#mentors-by-job"
+        href="#mentors-by-company"
         className="flex w-full items-center justify-center rounded-lg bg-brand-600 py-[15px] font-bold text-white"
       >
         {passed ? "신청하러 가기" : "멘토 보기"}

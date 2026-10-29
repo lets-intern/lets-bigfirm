@@ -4,6 +4,7 @@ import { Hero } from "@/components/hero";
 import { MentorFinder } from "@/components/mentor-finder";
 import { MobileDock } from "@/components/mobile-dock";
 import { COUPON } from "@/lib/coupon";
+import { getMentorImages } from "@/lib/mentor-profiles";
 
 const WORRIES = [
   "불합격 통보 받았지만 여전히 어디가, 왜 문제인지 모르겠어요",
@@ -14,23 +15,48 @@ const WORRIES = [
 
 const REASONS = [
   {
-    tag: "같은 직무",
-    tagClass: "bg-[#ffeeea] text-coral",
-    title: "내 직무를 아는 사람이 봅니다",
-    body: "개발, 연구, PM, 데이터, 마케팅, 영업, 전략기획까지. 내가 지원하는 직무와 가까운 현직자에게 그 직무의 언어로 피드백 받아요.",
-  },
-  {
-    tag: "직접 통과한 경험",
+    tag: "합격 경험",
     tagClass: "bg-[#f1f0ff] text-brand-600",
-    title: "대기업 채용을 직접 통과한 사람이 봅니다",
-    body: "멘토 모두 대기업 서류와 면접을 거쳐 입사했어요. 어디서 걸리기 쉬운지 경험으로 알아요.",
+    title: "대기업 채용을 직접 경험하고 합격한 노하우로 알려드려요",
+    body: "멘토 모두 대기업 서류와 면접을 거쳐 입사했어요. 합격 노하우를 통해 탈락 이유를 분석해드려요.",
   },
   {
-    tag: "현직 기준",
+    tag: "최신 채용 트렌드",
     tagClass: "bg-[#e9f9ff] text-[#0a7fae]",
-    title: "지금의 기준으로 봅니다",
-    body: "몇 년 전 합격 공식이 아니라, 지금 회사 안에서 보는 기준으로 이야기해요.",
+    title: (
+      <>
+        기업의 채용 트렌드를
+        <br />
+        가장 빠르게 알아요
+      </>
+    ),
+    body: "몇 년 전 합격 공식이 아니라, 가장 최근의 기준으로 이야기해요.",
   },
+  {
+    tag: "직무 이해도",
+    tagClass: "bg-[#ffeeea] text-coral",
+    title: (
+      <>
+        실무자의 언어로
+        <br />
+        생생하게 들을 수 있어요
+      </>
+    ),
+    body: (
+      <>
+        내가 지원하는 직무와 가까운 현직자에게
+        <br />
+        그 직무의 언어로 피드백 받아요.
+      </>
+    ),
+  },
+];
+
+const COMMONS: ReactNode[] = [
+  "모두 1년차 이상의 현직자로, 현장 경험을 생생하게 들려주실 수 있어요",
+  // 9명 feedbackMenteeCount 합 (letscareer.co.kr/mentors/{id}, 2026-10-30)
+  "렛츠커리어 프로그램을 통해 누적 2,384번의 멘토링을 담당했어요",
+  "렛츠커리어의 미션에 공감해요",
 ];
 
 const STEPS = [
@@ -95,7 +121,9 @@ const FAQS: { question: string; answer: ReactNode }[] = [
   { question: "취소나 환불이 가능한가요?", answer: <Fill>[환불 규정]</Fill> },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const mentorImages = await getMentorImages();
+
   return (
     <>
       <Hero />
@@ -153,7 +181,7 @@ export default function Home() {
               ))}
             </ul>
             <p className="mt-7 text-[19px] leading-[1.6] font-medium">
-              문제는 이력과 노력이 아니라,
+              이력이나 노력의 문제가 아니라,
               <br />
               <strong className="bg-[linear-gradient(transparent_60%,var(--color-brand-200)_60%)] font-extrabold">
                 평가자의 시선에서 서류를 볼 기회가 없었기 때문
@@ -164,15 +192,15 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* 왜 대기업 현직 멘토인가 */}
+      {/* 현직자 피드백이 필요한 이유 */}
       <Section cool id="why">
         <SectionHead
-          eyebrow="왜 대기업 현직 멘토인가"
+          eyebrow="현직자 피드백이 필요한 이유"
           title={
             <>
-              취준생의 눈이 아니라,
+              취준생은 못 보는 한 줄,
               <br />
-              같은 직무 현직자의 눈으로
+              현직자는 볼 수 있어요
             </>
           }
         />
@@ -195,7 +223,11 @@ export default function Home() {
           </div>
           <div className="rounded-[10px] bg-paper px-4 py-3.5 text-[15px] leading-[1.6] text-[#26262b]">
             <span className="mb-1 block text-xs font-bold text-[#77777f]">PM 지원자의 자기소개서 문장</span>
-            &quot;서비스 개선 프로젝트에서 사용자 인터뷰를 진행하고 기능을 개선해 만족도를 높였습니다.&quot;
+            &quot;서비스 개선 프로젝트에서 사용자 인터뷰를 진행하고{" "}
+            <mark className="bg-transparent bg-[linear-gradient(transparent_55%,#c7caff_55%)] font-semibold text-inherit">
+              기능을 개선해 만족도를 높였습니다
+            </mark>
+            .&quot;
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             <div className="grid content-start gap-2 rounded-[15px] bg-cool px-5 py-[18px]">
@@ -205,10 +237,10 @@ export default function Home() {
               </p>
             </div>
             <div className="grid content-start gap-2 rounded-[15px] bg-brand-200 px-5 py-[18px] shadow-[inset_0_0_0_1.5px_var(--color-brand-600)]">
-              <p className="text-[13px] font-extrabold text-brand-600">같은 직무 현직자의 피드백</p>
+              <p className="text-[13px] font-extrabold text-brand-600">대기업 현직 멘토의 피드백</p>
               <p className="text-[15px] leading-[1.65] font-semibold">
-                &quot;PM 서류라면 &apos;왜 이 기능이었는지&apos;가 먼저 보여야 해요. 인터뷰 몇 명에게서 어떤 문제를
-                발견했고, 개선 후 어떤 지표가 얼마나 바뀌었는지 숫자로 써주세요.&quot;
+                &quot;PM 서류라면 &quot;왜 이 기능이었는지&quot;가 먼저 보여야 해요. 몇 명의 인터뷰이에게서 문제를
+                발견했고, 개선 후 어떤 지표가 얼마나 바뀌었는지 숫자로 명시합니다.&quot;
               </p>
             </div>
           </div>
@@ -229,14 +261,36 @@ export default function Home() {
         </ol>
       </Section>
 
-      {/* 직무별 멘토 추천 */}
-      <Section cool id="mentors-by-job">
+      {/* 기업별 멘토 추천 */}
+      <Section cool id="mentors-by-company">
         <SectionHead
-          eyebrow="직무별 멘토 추천"
-          title="어떤 직무를 준비하나요?"
-          lede="내 지원 직무와 가까운 현직자에게 피드백 받아보세요."
+          eyebrow="기업별 멘토 추천"
+          title={
+            <>
+              가고 싶은 기업,
+              <br />
+              지금 다니는 사람에게 물어보세요
+            </>
+          }
+          lede="100대 기업·네카라쿠배 현직 멘토 중 내 지원 직무와 가까운 분을 골라보세요."
+          className="mb-8"
         />
-        <MentorFinder />
+        <h3 className="mb-4 text-[22px] font-extrabold">렛츠커리어 멘토님들의 공통점</h3>
+        <ul className="mb-12 grid gap-2.5">
+          {COMMONS.map((item, i) => (
+            <li
+              key={i}
+              className="flex items-center gap-3.5 rounded-[15px] border border-line bg-white px-[18px] py-4 text-[19px] font-semibold"
+            >
+              <svg aria-hidden viewBox="0 0 20 20" className="size-6 shrink-0 text-brand-600">
+                <circle cx="10" cy="10" r="10" fill="currentColor" />
+                <path d="M6 10.4l2.6 2.6L14 7.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <MentorFinder images={mentorImages} />
       </Section>
 
       {/* 할인 쿠폰 */}
@@ -307,7 +361,7 @@ export default function Home() {
               </dl>
               <div className="flex flex-wrap items-center justify-between gap-2.5 border-t border-line pt-3 text-[13px] text-ink-3">
                 <span>{review.meta}</span>
-                <a href="#mentors-by-job" className="font-bold text-brand-600">
+                <a href="#mentors-by-company" className="font-bold text-brand-600">
                   이 멘토 보기 →
                 </a>
               </div>
@@ -346,7 +400,7 @@ export default function Home() {
           </h2>
           <p className="text-[17px] text-ink-2">대기업 현직 멘토가 기다리고 있어요.</p>
           <a
-            href="#mentors-by-job"
+            href="#mentors-by-company"
             className="mt-3 inline-flex items-center justify-center rounded-lg bg-brand-600 px-7 py-[15px] font-bold text-white hover:brightness-105 active:scale-[.98]"
           >
             대기업 멘토 찾기
