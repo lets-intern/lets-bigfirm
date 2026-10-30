@@ -4,7 +4,28 @@ import Image from "next/image";
 import { useState } from "react";
 import { mentorDetailUrl } from "@/lib/links";
 import type { MentorImages } from "@/lib/mentor-profiles";
-import { COMPANY_TABS, MENTORS, type Mentor } from "@/lib/mentors";
+import {
+  CHALLENGE_SHORT_TAG,
+  CHALLENGE_TAG,
+  COMPANY_TABS,
+  LIVE_TAG,
+  MARKETING_TAG,
+  MENTORS,
+  PM_TAG,
+  PORTFOLIO_TAG,
+  SEMINAR_TAG,
+  type Mentor,
+} from "@/lib/mentors";
+
+const TAG_STYLES: Record<string, string> = {
+  [CHALLENGE_TAG]: "bg-[#3fae4a]/15 text-[#2b8a36]",
+  [CHALLENGE_SHORT_TAG]: "bg-[#3fae4a]/15 text-[#2b8a36]",
+  [PORTFOLIO_TAG]: "bg-coral/12 text-coral",
+  [MARKETING_TAG]: "bg-[#1e2f7a]/12 text-[#1e2f7a]",
+  [PM_TAG]: "bg-[#0a8fc4]/12 text-[#0a8fc4]",
+  [LIVE_TAG]: "bg-brand-600/12 text-brand-600",
+  [SEMINAR_TAG]: "bg-ink/8 text-ink-2",
+};
 
 export function MentorFinder({ images }: { images: MentorImages }) {
   const [active, setActive] = useState<(typeof COMPANY_TABS)[number]["key"]>("all");
@@ -48,7 +69,7 @@ export function MentorFinder({ images }: { images: MentorImages }) {
 
 function MentorCard({ mentor, image }: { mentor: Mentor; image: string | null }) {
   return (
-    <article className="relative grid min-h-[358px] grid-rows-[auto_auto_1fr_auto] gap-3.5 rounded-[20px] border-[1.5px] border-line bg-white p-[22px] transition hover:-translate-y-0.5 hover:border-brand-600">
+    <article className="relative flex flex-col gap-3.5 rounded-[20px] border-[1.5px] border-line bg-white p-[22px] transition hover:-translate-y-0.5 hover:border-brand-600">
       <div className="flex items-center gap-3">
         {image ? (
           <Image
@@ -73,19 +94,27 @@ function MentorCard({ mentor, image }: { mentor: Mentor; image: string | null })
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-1.5">
-        {mentor.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-[#f1f0ff] px-2.5 py-1 text-xs font-bold text-brand-600">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <p className="text-[15px] leading-[1.55] font-bold">&quot;{mentor.quote}&quot;</p>
+      {(mentor.tags.length > 0 || mentor.years) && (
+        <div className="flex flex-wrap gap-1.5">
+          {mentor.years && (
+            <span className="rounded-full border border-line px-3 py-1 text-sm font-bold text-ink-2">{mentor.years}년차</span>
+          )}
+          {mentor.tags.map((tag) => (
+            <span
+              key={tag}
+              className={`rounded-full px-3 py-1 text-sm font-bold ${TAG_STYLES[tag] ?? "bg-[#f1f0ff] text-brand-600"}`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+      <p className="my-2 flex min-h-[4.65em] items-center justify-center text-center text-[18px] whitespace-pre-line leading-[1.55] font-bold text-ink-3">{mentor.focus ?? `"${mentor.quote}"`}</p>
       <a
         href={mentorDetailUrl(mentor.id)}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full items-center rounded-xl bg-brand-200 px-4 py-2.5 text-sm font-medium text-brand-600 after:absolute after:inset-0 after:rounded-[20px] hover:bg-brand-100"
+        className="mt-auto flex w-full items-center rounded-xl bg-brand-200 px-4 py-2.5 text-sm font-medium text-brand-600 after:absolute after:inset-0 after:rounded-[20px] hover:bg-brand-100"
       >
         상세페이지 보러가기 →
       </a>
