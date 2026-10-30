@@ -62,9 +62,9 @@ const COMMONS: ReactNode[] = [
 ];
 
 const STEPS = [
-  { title: "탈락한 서류를 그대로 보내주세요", body: "고치지 않은 원본이 좋아요. 그래야 진짜 원인이 보여요." },
-  { title: "멘토가 평가자 시선으로 미리 읽어요", body: "라이브 전에 서류를 먼저 검토하고 짚을 부분을 정리해요." },
-  { title: "1:1 라이브로 원인과 방향을 잡아요", body: "왜 떨어졌는지, 다음엔 무엇을 바꿔야 하는지 직접 묻고 답해요." },
+  { title: "탈락한 서류를 그대로 보내주세요", body: "고치지 않은 원본 그대로 보내주세요,\n탈락 요소들을 진단해드립니다." },
+  { title: "멘토가 평가자의 시선으로 분석해요", body: "실시간 멘토링 전, 미리 서류를 검토하고 사전질문에 대한 답변을 준비해요." },
+  { title: "실시간으로 원인과 수정안을 알려드려요", body: "왜 떨어졌는지, 다음엔 무엇을 바꿔야 하는지 직접 알려드리고 궁금한 점은 바로 질문해요." },
 ];
 
 // 예시 후기 — 실제 후기로 교체 필요
@@ -278,13 +278,22 @@ export default async function Home() {
 
       {/* 진행 방식 */}
       <Section id="how">
-        <SectionHead eyebrow="진행 방식" title="떨어진 서류 하나면, 시작할 수 있어요" />
+        <SectionHead
+          eyebrow="진행 방식"
+          title={
+            <>
+              고치지 않은 탈락 서류가
+              <br />
+              가장 정확한 진단서예요
+            </>
+          }
+        />
         <ol className="grid gap-4 min-[861px]:grid-cols-3">
           {STEPS.map((step, i) => (
             <li key={step.title} className="grid content-start gap-2 rounded-[20px] border border-line bg-white px-6 py-[26px]">
               <span className="text-xs font-extrabold tracking-[.08em] text-brand-600">STEP {i + 1}</span>
               <h3 className="text-[19px] font-extrabold">{step.title}</h3>
-              <p className="text-[15px] text-ink-2">{step.body}</p>
+              <p className="text-[15px] whitespace-pre-line text-ink-2">{step.body}</p>
             </li>
           ))}
         </ol>
