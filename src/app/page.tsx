@@ -1,10 +1,11 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { CouponTicket } from "@/components/coupon-ticket";
 import { Hero } from "@/components/hero";
 import { MentorFinder } from "@/components/mentor-finder";
 import { MobileDock } from "@/components/mobile-dock";
 import { COUPON } from "@/lib/coupon";
-import { LETSCAREER_REVIEW_URL, mentorDetailUrl } from "@/lib/links";
+import { LETSCAREER_CHAT_URL, LETSCAREER_REVIEW_URL, mentorDetailUrl } from "@/lib/links";
 import { getMentorImages } from "@/lib/mentor-profiles";
 import { MENTORS } from "@/lib/mentors";
 
@@ -108,38 +109,30 @@ const REVIEWS = [
   },
 ];
 
-// [ ] 는 확정 필요 문구
+// 진행·일정·시간 답변은 letscareer.co.kr/live-mentoring/{id} 하단 FAQ·멘토링 프로세스 기준 (2026-10-30)
 const FAQS: { question: string; answer: ReactNode }[] = [
   {
     question: "멘토의 소속과 경력은 어디서 볼 수 있나요?",
     answer: '멘토 카드의 "상세보기"를 누르면 멘토 상세페이지에서 소속, 경력, 멘토링에서 다루는 내용을 확인할 수 있어요.',
   },
   {
-    question: "제가 지원한 직무와 멘토 직무가 달라도 되나요?",
+    question: "꼭 떨어진 서류를 고치지 않고 그대로 가져가도 되나요?",
     answer:
-      "괜찮아요. 대기업 서류와 면접은 직무가 달라도 공통으로 보는 기준이 있어요. 직무 전문 지식이 꼭 필요하다면, 비슷한 직무 멘토를 상세페이지에서 찾아보세요.",
-  },
-  {
-    question: "떨어진 서류를 고치지 않고 그대로 가져가도 되나요?",
-    answer: "오히려 그대로가 좋아요. 원본을 봐야 어디서 탈락했는지 정확히 짚을 수 있어요.",
-  },
-  {
-    question: "제 서류가 외부에 유출되지는 않나요?",
-    answer: (
-      <>
-        <Fill>[보안 정책]</Fill> 예) 제출 서류는 멘토링 목적으로만 쓰이며, 멘토링 종료 후 N일 뒤 삭제돼요.
-      </>
-    ),
+      "네, 고치지 않은 원본 그대로 가져와 주세요. 손보기 전 서류여야 어디서 탈락했는지 정확히 짚을 수 있어요. 예약 후 마이페이지 신청현황에서 올려주시면 멘토가 미리 검토해요.",
   },
   {
     question: "멘토링은 어떻게 진행되나요?",
-    answer: (
-      <>
-        <Fill>[진행 방식]</Fill> 예) 신청 후 일정을 조율하고, 화상으로 1:1 라이브 멘토링을 진행해요.
-      </>
-    ),
+    answer:
+      "100% 온라인으로 진행돼요. 상세페이지에서 플랜과 주제, 예약일시를 골라 신청한 뒤 마이페이지 신청현황에서 사전 질문과 서류를 제출해요. 입장 링크는 카카오톡 알림톡으로 보내드리고, 예약한 시간에 입장해 멘토와 실시간으로 멘토링을 진행해요.",
   },
-  { question: "취소나 환불이 가능한가요?", answer: <Fill>[환불 규정]</Fill> },
+  {
+    question: "예약한 일정을 변경할 수 있나요?",
+    answer: "멘토링 시작 전까지 마이페이지 신청현황에서 변경할 수 있어요.",
+  },
+  {
+    question: "멘토링 시간이 부족하면 연장할 수 있나요?",
+    answer: "예약한 시간 안에서 진행돼요. 더 깊게 이야기 나누고 싶다면 60분 플랜을 선택해주세요.",
+  },
 ];
 
 export default async function Home() {
@@ -453,35 +446,77 @@ export default async function Home() {
       {/* FAQ */}
       <Section id="faq">
         <SectionHead eyebrow="FAQ" title="신청 전에 많이 묻는 질문" />
-        <div className="grid max-w-[820px] gap-2.5">
+        <div className="grid gap-2.5">
           {FAQS.map((faq, i) => (
             <details key={faq.question} open={i === 0} className="group rounded-[15px] border border-line bg-white">
-              <summary className="flex cursor-pointer list-none items-start gap-3 px-[22px] py-5 font-bold [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-start gap-3 px-[22px] py-5 text-[18px] font-bold [&::-webkit-details-marker]:hidden">
                 <span className="font-extrabold text-brand-600">Q</span>
                 <span className="flex-1">{faq.question}</span>
-                <span aria-hidden className="text-xl leading-none text-ink-3 transition-transform group-open:rotate-45">
-                  +
-                </span>
+                <svg aria-hidden viewBox="0 0 20 20" className="mt-1 size-5 shrink-0 text-ink-3 group-open:hidden">
+                  <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <svg aria-hidden viewBox="0 0 20 20" className="mt-1 hidden size-5 shrink-0 text-ink-3 group-open:block">
+                  <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
               </summary>
               <p className="px-[22px] pb-5 pl-[46px] text-[15px] text-ink-2">{faq.answer}</p>
             </details>
           ))}
         </div>
+        <div className="mt-4 flex flex-col items-center justify-between gap-3 rounded-[15px] bg-cool px-[22px] py-4 md:flex-row">
+          <p className="font-semibold">아직 궁금증이 풀리지 않았다면?</p>
+          <a
+            href={LETSCAREER_CHAT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-line bg-white px-4 py-2 text-sm font-bold text-ink-2 hover:border-brand-600 hover:text-brand-600"
+          >
+            1:1 채팅 문의하기
+          </a>
+        </div>
       </Section>
 
-      {/* 마지막 CTA */}
-      <section className="bg-hero text-center">
-        <div className="mx-auto grid max-w-[1080px] justify-items-center gap-4 px-5 py-20">
-          <p className="font-hand text-[28px] leading-none text-coral">이번엔 다르게!</p>
-          <h2 className="text-[clamp(26px,4.4vw,40px)] leading-[1.3] font-extrabold">
-            다음 공채 전에,
-            <br />
-            같은 서류를 또 내지 않도록.
-          </h2>
-          <p className="text-[17px] text-ink-2">대기업 현직 멘토가 기다리고 있어요.</p>
+      {/* 마지막 CTA — letscareer.co.kr/mentor-join 하단 CTA 디자인 참고 */}
+      <section className="relative isolate overflow-hidden bg-[linear-gradient(135deg,#09042a,#5144b6)] text-center">
+        <svg
+          aria-hidden
+          viewBox="0 0 1336 1336"
+          className="absolute top-[-253px] left-[calc(50%-650px)] -z-10 size-[1336px] max-w-none"
+        >
+          <path
+            d="M1271.72 1242.03C1179.55 1293.74 1011.02 1188.02 847.945 992.383C899.589 1150.26 897.757 1276.23 832.047 1313.09C757.981 1354.64 623.573 1271.29 494.414 1116.54C514.59 1214.99 499.775 1294.66 447.153 1324.18C359.829 1373.16 201.457 1265.49 93.4213 1083.68C-14.6149 901.871 -31.4049 714.777 55.9197 665.793C108.541 636.275 186.96 663.643 264.618 729.839C191.262 543.784 184.17 389.01 258.237 347.462C323.948 310.602 437.155 372.05 552.055 494.444C459.219 259.415 449.249 64.7557 541.421 13.0521C666.171 -56.9256 930.784 161.463 1132.45 500.837C1334.12 840.211 1396.47 1172.06 1271.72 1242.03Z"
+            fill="url(#cta-glow)"
+            fillOpacity="0.5"
+          />
+          <defs>
+            <radialGradient id="cta-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(668 668) rotate(90) scale(668)">
+              <stop stopColor="#4E40B2" stopOpacity="0.6" />
+              <stop offset="1" stopColor="#898EFF" stopOpacity="0.2" />
+            </radialGradient>
+          </defs>
+        </svg>
+        <div className="mx-auto grid max-w-[1080px] justify-items-center gap-10 px-5 py-16 sm:gap-14 sm:py-24">
+          <Image
+            src="/logo-letscareer-white.svg"
+            alt="렛츠커리어"
+            width={220}
+            height={35}
+            unoptimized
+            className="h-auto w-[180px] sm:w-[220px]"
+          />
+          <div className="grid gap-4">
+            <h2 className="text-[28px] leading-[1.4] font-bold sm:text-[40px] min-[1024px]:text-[48px]">
+              <span className="box-decoration-clone bg-gradient-to-b from-[#c4a3ff] to-[#5b54ff] to-70% bg-clip-text text-transparent">
+                탈락 이유를 확인했다면,
+              </span>
+              <br />
+              <span className="text-[#edeefe]">다음 공채의 결과는 달라져요</span>
+            </h2>
+            <p className="text-[17px] text-white/70">대기업 현직자와 함께, 이번엔 다르게 준비해보세요.</p>
+          </div>
           <a
             href="#mentors-by-company"
-            className="mt-3 inline-flex items-center justify-center rounded-lg bg-brand-600 px-7 py-[15px] font-bold text-white hover:brightness-105 active:scale-[.98]"
+            className="flex h-12 items-center justify-center gap-2 rounded-lg bg-[linear-gradient(272deg,#9762f5_1.88%,#544cff_98.12%)] px-7 py-4 text-lg leading-none font-semibold text-white hover:brightness-110 sm:h-16 sm:px-10 sm:py-6 sm:text-[22px]"
           >
             대기업 멘토 찾기
           </a>
@@ -519,8 +554,4 @@ function SectionHead({
       {lede && <p className="max-w-[36em] text-[17px] text-ink-2">{lede}</p>}
     </div>
   );
-}
-
-function Fill({ children }: { children: ReactNode }) {
-  return <span className="rounded bg-[#ffeeea] px-1 font-bold text-coral">{children}</span>;
 }

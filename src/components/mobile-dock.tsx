@@ -1,30 +1,30 @@
-"use client";
+import { LETSCAREER_CHAT_URL, LETSCAREER_MENTORING_URL } from "@/lib/links";
 
-import { useEffect, useState } from "react";
-
-// 모바일 하단 고정 버튼. 후기 섹션에 닿으면 문구를 '신청하러 가기'로 바꾼다
+// 하단 플로팅 바 (letscareer.co.kr/mentor-join 플로팅 바 디자인)
 export function MobileDock() {
-  const [passed, setPassed] = useState(false);
-
-  useEffect(() => {
-    const reviews = document.getElementById("reviews");
-    if (!reviews) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setPassed(entry.boundingClientRect.top < window.innerHeight),
-      { threshold: [0, 1] },
-    );
-    observer.observe(reviews);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white px-4 pt-2.5 pb-[calc(10px+env(safe-area-inset-bottom))] md:hidden">
-      <a
-        href="#mentors-by-company"
-        className="flex w-full items-center justify-center rounded-lg bg-brand-600 py-[15px] font-bold text-white"
-      >
-        {passed ? "신청하러 가기" : "멘토 보기"}
-      </a>
+    <div className="fixed inset-x-0 bottom-[calc(16px+env(safe-area-inset-bottom))] z-20 px-4 sm:bottom-6">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-between gap-3 rounded-lg border border-white/40 bg-[#27272d]/[0.64] px-4 py-3 backdrop-blur-[10px] sm:px-5 sm:py-4">
+        <p className="hidden text-xl leading-[1.4] font-semibold text-[#fafafa] md:block">대기업 현직 멘토 기획전</p>
+        <div className="flex flex-1 items-center gap-3 md:flex-none">
+          <a
+            href={LETSCAREER_CHAT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 rounded-md bg-white px-5 py-3 text-center text-base font-medium text-brand-600 hover:bg-[#eef0ff] md:flex-none"
+          >
+            문의하기
+          </a>
+          <a
+            href={LETSCAREER_MENTORING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-[2] rounded-md bg-brand-600 px-5 py-3 text-center text-base font-medium whitespace-nowrap text-white hover:bg-[#3a41d6] md:flex-none"
+          >
+            더 다양한 멘토 구경하기
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

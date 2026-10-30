@@ -72,7 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </header>
         <main className="flex flex-1 flex-col">{children}</main>
         <footer className="bg-cool text-[13px] text-ink-3">
-          <div className="mx-auto flex max-w-[1080px] flex-wrap items-center justify-between gap-4 px-5 pt-8 pb-26 md:pb-10">
+          <div className="mx-auto flex max-w-[1080px] flex-wrap items-center justify-between gap-4 px-5 pt-8 pb-26 sm:pb-30">
             <Image src="/logo-letscareer.png" alt="LETS CAREER" width={76} height={22} className="h-[22px] w-auto" />
             <span>1:1 LIVE 멘토링 · 대기업 현직 멘토 기획전</span>
           </div>
