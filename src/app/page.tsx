@@ -4,7 +4,9 @@ import { Hero } from "@/components/hero";
 import { MentorFinder } from "@/components/mentor-finder";
 import { MobileDock } from "@/components/mobile-dock";
 import { COUPON } from "@/lib/coupon";
+import { LETSCAREER_REVIEW_URL, mentorDetailUrl } from "@/lib/links";
 import { getMentorImages } from "@/lib/mentor-profiles";
+import { MENTORS } from "@/lib/mentors";
 
 const WORRIES = [
   "불합격 통보 받았지만 여전히 어디가, 왜 문제인지 모르겠어요",
@@ -54,11 +56,22 @@ const REASONS = [
 
 const MENTOR_FEEDBACK_POINTS = ["직무 관점 제시", "문제 발견 과정", "정량 지표로 증명"];
 
+const HIGHLIGHT = "bg-[linear-gradient(transparent_60%,var(--color-brand-200)_60%)] font-extrabold";
+
 const COMMONS: ReactNode[] = [
-  "모두 1년차 이상의 현직자로, 현장 경험을 생생하게 들려주실 수 있어요",
+  <>
+    <strong className={HIGHLIGHT}>모두 1년차 이상의 현직자</strong>로, 현장 경험을 생생하게 들려주실 수 있어요
+  </>,
   // 9명 feedbackMenteeCount 합 (letscareer.co.kr/mentors/{id}, 2026-10-30)
-  "렛츠커리어 프로그램을 통해 누적 2,384번의 멘토링을 담당했어요",
-  "렛츠커리어의 미션에 공감해요",
+  <>
+    렛츠커리어 프로그램을 통해 <strong className={HIGHLIGHT}>누적 2,384번의 멘토링</strong>을 진행했어요
+  </>,
+  <>
+    <strong className={HIGHLIGHT}>렛츠커리어의 미션</strong>에 공감하며, 멘티들에게 진심을 다해 조언하고 긍정적인 영향력을 전달해요
+    <span className="mt-1.5 block text-sm font-normal text-ink-2">
+      취업 준비생과 함께하는 지속가능한 커리어 ‘선순환 커뮤니티’를 만듭니다
+    </span>
+  </>,
 ];
 
 const STEPS = [
@@ -67,25 +80,31 @@ const STEPS = [
   { title: "실시간으로 원인과 수정안을 알려드려요", body: "왜 떨어졌는지, 다음엔 무엇을 바꿔야 하는지 직접 알려드리고 궁금한 점은 바로 질문해요." },
 ];
 
-// 예시 후기 — 실제 후기로 교체 필요
+// 9명 멘토 공개 후기(/api/v1/mentor/{id}의 reviewList, 2026-10-30) 중 별점 높고 긴 순 3건. 본문은 원문 그대로.
 const REVIEWS = [
   {
-    before: "하반기 5곳 서류 전부 탈락. 경험은 많은데 왜 떨어지는지 몰랐어요.",
-    point: "경험을 나열만 하고, 그래서 무엇을 바꿨는지 결과가 하나도 없었어요.",
-    after: "문항마다 결론과 숫자를 첫 줄에 두는 구조로 전부 다시 썼어요.",
-    meta: "취준생 · 전자 계열사 멘토 · 자소서",
+    mentorId: 5895,
+    score: 5,
+    program: "현직 PM이 알려주는 '합격하는 포트폴리오' 1대1 멘토링",
+    date: "2026.10.28",
+    review:
+      "제가 지원하는 직무와 일치하는 멘토님을 만날 수 있어서 좋았어요. 서비스기획자로서 어떤 인사이트를 가지고 계신지, 또 웹/앱 서비스기획자와 달리 모빌리티 산업에서의 서비스기획에서 좀 더 중점적으로 생각해봐야할 것들이 무엇인지 알려주셔서 큰 도움이 되었습니다. 정해진 시간을 초과했음에도 편하게 더 질문거리 없냐고 물어봐주시고 친절히 멘토님의 생각을 잘 설명해주셔서 정말 감사했습니다. 서비스기획자/PM의 꿈을 가지고 계시면 꼭 한번 신청해서 얘기 나눠보시면 좋을 것 같아요.",
   },
   {
-    before: "최종 면접까지 갔다가 떨어졌어요. 분위기는 좋았는데 이유를 모르겠더라고요.",
-    point: "꼬리 질문에서 답이 처음 답변과 어긋나는 걸 면접관 입장에서 바로 짚어줬어요.",
-    after: "핵심 경험 3개를 깊게 파서, 어떤 질문이 와도 같은 이야기로 돌아오게 준비했어요.",
-    meta: "신입 1년차 · 화학 계열사 멘토 · 모의면접",
+    mentorId: 5357,
+    score: 5,
+    program: "면접 준비 7일 끝장 챌린지 6기",
+    date: "2026.07.14",
+    review:
+      "경험 정리가 더 상세하게 진행되어야 한다는 점이 가장 기억에 남습니다.\n스스로 정리하면서 어떤 기준으로 선택을 하였는지, 결과는 어땠는지 다시 돌아볼 수 있는 시간이 되었습니다.\n뿐만 아니라 컨셉/캐릭터 잡는 것이 가장 어려웠는데, 멘토님의 피드백을 보고 갈피를 잡을 수 있게 되었습니다.\n\n감사합니다 :)",
   },
   {
-    before: "중견기업 1년차인데, 대기업 신입으로 다시 지원할지 고민이었어요.",
-    point: "지금 경력이 중고신입 서류에서 어떻게 읽히는지 현직자 기준으로 설명해줬어요.",
-    after: "지원 회사를 좁히고, 1년 경력을 강점으로 쓰는 방향을 잡았어요.",
-    meta: "신입 1년차 · IT 플랫폼 멘토 · 커리어",
+    mentorId: 3929,
+    score: 5,
+    program: "대기업 자기소개서 완성 챌린지 13기",
+    date: "2026.09.09",
+    review:
+      "매일 제 눈으로만 보여서 안보였던 점을 멘토님 시각에서 발견해주셨습니다! STAR에서 내 생각, 나의 문제 정의 의견 부분을 너무 중시하다보니 자꾸 S 부분을 놓치는 것과 나의 이야기를 타인에게 할 때는 좀 더 쉽게 설명할 필요가 있다는 것 다시 한 번 배우고 가요! 멘토님 감사합니다!!",
   },
 ];
 
@@ -185,7 +204,7 @@ export default async function Home() {
             <p className="mt-7 text-[19px] leading-[1.6] font-medium">
               이력이나 노력의 문제가 아니라,
               <br />
-              <strong className="bg-[linear-gradient(transparent_60%,var(--color-brand-200)_60%)] font-extrabold">
+              <strong className={HIGHLIGHT}>
                 평가자의 시선에서 서류를 볼 기회가 없었기 때문
               </strong>
               일지도 몰라요.
@@ -311,23 +330,34 @@ export default async function Home() {
             </>
           }
           lede="100대 기업·네카라쿠배 현직 멘토 중 내 지원 직무와 가까운 분을 골라보세요."
-          className="mb-8"
+          className="mb-16"
         />
-        <h3 className="mb-4 text-[22px] font-extrabold">렛츠커리어 멘토님들의 공통점</h3>
-        <ul className="mb-12 grid gap-2.5">
-          {COMMONS.map((item, i) => (
-            <li
-              key={i}
-              className="flex items-center gap-3.5 rounded-[15px] border border-line bg-white px-[18px] py-4 text-[19px] font-semibold"
-            >
-              <svg aria-hidden viewBox="0 0 20 20" className="size-6 shrink-0 text-brand-600">
-                <circle cx="10" cy="10" r="10" fill="currentColor" />
-                <path d="M6 10.4l2.6 2.6L14 7.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="mb-16 grid gap-6 min-[861px]:grid-cols-[auto_1fr] min-[861px]:gap-x-0">
+          <div className="grid content-start gap-3">
+            {/* 체크 카드 왼쪽 끝을 아래 "…현직 멘토 9명"의 "멘토" 위치에 맞추는 폭 기준 */}
+            <span aria-hidden className="invisible -mb-3 h-0 text-[22px] font-extrabold whitespace-pre max-[860px]:hidden">
+              지금 만날 수 있는 대기업 현직{" "}
+            </span>
+            <h3 className="text-[22px] font-extrabold">
+              렛츠커리어 멘토님들의
+              <br className="max-[860px]:hidden" /> 3가지 공통점
+            </h3>
+          </div>
+          <ul className="grid gap-2.5">
+            {COMMONS.map((item, i) => (
+              <li
+                key={i}
+                className="flex items-center gap-3.5 rounded-[15px] border border-line bg-white px-[18px] py-4 text-[18px] font-semibold"
+              >
+                <svg aria-hidden viewBox="0 0 20 20" className="size-6 shrink-0 text-brand-600">
+                  <circle cx="10" cy="10" r="10" fill="currentColor" />
+                  <path d="M6 10.4l2.6 2.6L14 7.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
         <MentorFinder images={mentorImages} />
       </Section>
 
@@ -372,39 +402,51 @@ export default async function Home() {
       <Section cool id="reviews">
         <SectionHead
           eyebrow="후기"
-          title="먼저 떨어져 본 사람들의 이야기"
-          lede={
-            <>
-              <span className="text-ink-3">| </span>공채 탈락 후 멘토링을 받은 분들의 후기를 모았어요.{" "}
-              <Fill>[아래 3개는 예시 · 실제 후기로 교체]</Fill>
-            </>
-          }
+          title="멘토님께 직접 남겨주신 후기"
+          lede="9명의 멘토님께 남겨진 후기를 모았어요."
         />
         <div className="grid gap-4 min-[961px]:grid-cols-3">
-          {REVIEWS.map((review) => (
-            <article key={review.meta} className="grid content-start gap-3.5 rounded-[20px] border border-line bg-white p-6">
-              <dl className="grid gap-3">
-                <div>
-                  <dt className="text-xs font-extrabold tracking-[.04em] text-ink-3">받기 전</dt>
-                  <dd className="mt-0.5 text-[15px] leading-[1.6]">{review.before}</dd>
+          {REVIEWS.map((review) => {
+            const mentor = MENTORS.find((m) => m.id === review.mentorId)!;
+            return (
+              <article
+                key={review.mentorId}
+                className="grid grid-rows-[auto_auto_1fr_auto] gap-3.5 rounded-[20px] border border-line bg-white p-6"
+              >
+                <div className="grid gap-0.5 text-[13px]">
+                  <span className="font-bold text-ink-2">{review.program}</span>
+                  <span className="text-ink-3">{review.date} 작성</span>
                 </div>
-                <div>
-                  <dt className="text-xs font-extrabold tracking-[.04em] text-coral">멘토가 짚어준 점</dt>
-                  <dd className="mt-0.5 text-[15px] leading-[1.6]">{review.point}</dd>
+                <p aria-label={`별점 ${review.score}점`} className="text-[15px] tracking-[.1em] text-brand-600">
+                  {"★".repeat(review.score)}
+                </p>
+                <p className="text-[15px] leading-[1.7] whitespace-pre-line">{review.review}</p>
+                <div className="grid gap-1 border-t border-line pt-3 text-[13px] text-ink-3">
+                  <span className="font-bold text-ink-2">
+                    {mentor.name} 멘토 · {mentor.org}
+                  </span>
+                  <a
+                    href={mentorDetailUrl(mentor.id)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 font-bold text-brand-600"
+                  >
+                    이 멘토 보기 →
+                  </a>
                 </div>
-                <div>
-                  <dt className="text-xs font-extrabold tracking-[.04em] text-brand-600">이후</dt>
-                  <dd className="mt-0.5 text-[15px] leading-[1.6] font-bold">{review.after}</dd>
-                </div>
-              </dl>
-              <div className="flex flex-wrap items-center justify-between gap-2.5 border-t border-line pt-3 text-[13px] text-ink-3">
-                <span>{review.meta}</span>
-                <a href="#mentors-by-company" className="font-bold text-brand-600">
-                  이 멘토 보기 →
-                </a>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
+        </div>
+        <div className="mt-8 flex justify-center">
+          <a
+            href={LETSCAREER_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-line bg-white px-5 py-2.5 text-sm font-bold text-ink-2 hover:border-brand-600 hover:text-brand-600"
+          >
+            더 자세한 후기가 궁금하다면 →
+          </a>
         </div>
       </Section>
 
